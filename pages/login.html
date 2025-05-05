@@ -151,6 +151,18 @@
         outline: none;
         transition: all 0.3s ease;
     }
+    .email-input:focus + .email-label,
+    .email-input:not(:placeholder-shown) + .email-label {
+        left: 20px;
+        top: 10%;
+        transform: translateY(-50%);
+        font-family: Geist;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: normal;
+        letter-spacing: -0.32px;
+    }
     .email-label{
         position: absolute;
         left: 20px;
@@ -182,8 +194,27 @@
         transition: 0.3s ease all;
 
     }
+    .em-password:focus + .pass-label,
+    .em-password:not(:placeholder-shown) + .pass-label {
+        left: 20px;
+        top: 68%;
+        transform: translateY(-50%);
+        
+        font-family: Geist;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: normal;
+        letter-spacing: -0.32px;
+    }
     .em-password::placeholder{
         color: transparent;
+    }
+    .email-input:focus,.em-password:focus{
+        
+        border: 2px  solid #388BFF;
+        background: #4D5761;
+        box-shadow: 0px 0px 13.2px -2px rgba(56, 139, 255, 0.73);
     }
     .icon-mail{
         position: absolute;
@@ -197,7 +228,22 @@
         top: 98px;
         left: 362px;
         transform: scale(1.2);    
-        opacity: 0.3;}
+        opacity: 0.3;
+        transition: all 0.3s ease;
+    }
+    .eye:hover {
+        opacity: 0;
+    }
+    .eyeclose{
+        position: absolute;
+        top: 100px;
+        left: 361px;
+        transform: scale(1.2);    
+        opacity: 0;
+        transition: all 0.3s ease;
+    }
+   
+
     .desc{
         width: 450px;
         height: 36px;
@@ -434,7 +480,7 @@
 </style>
 <body>
     <div class="navbar">
-        <img class="nav-logo" src="/assets/Dormease_logo.svg" alt="">
+        <a href="/pages/index.html"><img class="nav-logo" src="/assets/Dormease_logo.svg" alt=""></a>
         <input type="checkbox" id="menu-toggle">
         <label for="menu-toggle" class="hamburger-menu">
             <span></span>
@@ -526,7 +572,7 @@
         <p class="desc">New here?<a class = "desc" href="#"><bluelink>Create new account</bluelink></a></p>
         <div class="input-fields">
         <input type="email" class="email-input" id="email" placeholder=" ">
-        <label for="email" class="email-label">Email Address</label>
+        <label for="email" class="email-label">Email address</label>
         <svg class="icon-mail" xmlns="http://www.w3.org/2000/svg" width="20" height="13" viewBox="0 0 20 13" fill="none">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M0.206227 1.90471C0.0730992 2.24402 0 2.61347 0 3V10C0 11.6569 1.34315 13 3 13H17C18.6569 13 20 11.6569 20 10V3C20 2.61348 19.9269 2.24404 19.7938 1.90473C19.78 1.91471 19.7656 1.92409 19.7505 1.9328L10.2505 7.4328C10.0956 7.52251 9.90447 7.52251 9.7495 7.4328L0.249504 1.9328C0.234448 1.92408 0.220018 1.9147 0.206227 1.90471ZM0.719454 1.05078C0.729927 1.05591 0.740295 1.06144 0.75054 1.06737L10 6.42233L19.2495 1.06737C19.2597 1.06144 19.2701 1.05593 19.2806 1.05081C18.7303 0.407642 17.9128 0 17 0H3C2.08724 0 1.26969 0.407633 0.719454 1.05078Z" fill="white" style="mix-blend-mode:soft-light"/>
           </svg>
@@ -534,6 +580,8 @@
         <label for="password" class="pass-label">Password</label>
         <svg class="eye" xmlns="http://www.w3.org/2000/svg" width="18" height="11" viewBox="0 0 18 11" fill="none">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M0 5.5738C0 5.25122 0.144454 4.94185 0.401567 4.71374L3.39215 2.0607C6.48928 -0.686899 11.5107 -0.686899 14.6078 2.0607L17.5984 4.71374C17.8555 4.94185 18 5.25122 18 5.5738C18 5.90821 17.8448 6.22785 17.5709 6.45759L14.4488 9.07655C11.3914 11.6411 6.60859 11.6411 3.55125 9.07655L0.429076 6.45759C0.15519 6.22785 0 5.90821 0 5.5738ZM12.1042 8.11025C11.3128 8.82001 10.2143 9.25975 9 9.25975C6.58853 9.25975 4.63366 7.52551 4.63366 5.3862C4.63366 3.2469 6.58853 1.51266 9 1.51266C11.4115 1.51266 13.3663 3.2469 13.3663 5.3862C13.3663 5.67687 13.3302 5.96005 13.2618 6.23243C13.2197 5.10487 12.176 4.20228 10.8947 4.20228C9.58669 4.20228 8.52632 5.14298 8.52632 6.30339C8.52632 7.46381 9.58669 8.40451 10.8947 8.40451C11.3366 8.40451 11.7502 8.29716 12.1042 8.11025Z" fill="white" style="mix-blend-mode:soft-light"/>
+          </svg><svg class="eyeclose" xmlns="http://www.w3.org/2000/svg" width="20" height="12" viewBox="0 0 20 12" fill="none">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M1 1.37109C1 1.17891 1.05213 0.991458 1.14949 0.823364L0.446185 1.44665C0.160504 1.69984 0 2.04323 0 2.40128C0 2.77246 0.172433 3.12726 0.476751 3.38227L3.88908 6.24167C3.83075 6.30391 3.78088 6.3747 3.74208 6.45318L2.56389 8.83635C2.44245 9.08198 2.53703 9.36226 2.78397 9.48861C3.03091 9.61496 3.35209 9.54741 3.5314 9.33139L5.27115 7.23555C5.27676 7.22879 5.28225 7.22199 5.28761 7.21515C6.4637 7.87592 7.77707 8.26585 9.11517 8.38493L9.44394 11.2985C9.47587 11.5815 9.71523 11.7954 10 11.7954C10.2848 11.7954 10.5241 11.5815 10.5561 11.2985L10.8848 8.38493C12.1969 8.26817 13.4852 7.89098 14.6436 7.25338L16.3686 9.33139C16.5479 9.54741 16.8691 9.61496 17.116 9.48861C17.363 9.36226 17.4575 9.08198 17.3361 8.83635L16.1579 6.45318C16.1288 6.39437 16.0935 6.33989 16.0531 6.29009C16.0535 6.2898 16.0538 6.28951 16.0542 6.28923L19.5232 3.38227C19.8276 3.12726 20 2.77246 20 2.40128C20 2.04323 19.8395 1.69984 19.5538 1.44665L18.8505 0.823364C18.9479 0.991458 19 1.17891 19 1.37109C19 1.70273 18.8448 2.01973 18.5709 2.24758L15.4488 4.8449C12.3914 7.38829 7.60859 7.38829 4.55125 4.8449L1.42908 2.24758C1.15519 2.01973 1 1.70273 1 1.37109Z" fill="white" style="mix-blend-mode:soft-light"/>
           </svg>
         </div></div>
         <img src="/assets/ellipse-104.svg" alt="" class="ellipse">
