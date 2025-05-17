@@ -7,7 +7,7 @@
     <!-- Google Fonts - Geist -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@200;300;400;500;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;900&display=swap" rel="stylesheet">
 </head>
 <style>
     
@@ -19,6 +19,8 @@
         font-family: Arial, sans-serif;
         overflow-x: hidden; /* Prevent horizontal scroll */
     }
+    
+    
 
     body::after {
         content: '';
@@ -58,6 +60,7 @@
         height: auto;
         max-width: 100%;
         max-height: 100%;
+        
     }
     .content-box {
         position: absolute;
@@ -88,12 +91,12 @@
     /* Added content text styling */
     .content-text {
         color: #FFF;
-        font-family: Geist;
-        font-size: 80px;
-        font-style: normal;
-        font-weight: 900;
-        line-height: 73px; /* 80.179% */
-        letter-spacing: -0.8px;
+font-family: Geist;
+font-size: 63px;
+font-style: normal;
+font-weight: 900;
+line-height: 43.939px; /* 76.562% */
+letter-spacing: -2.296px;
         
         position: relative;
         z-index: 1;
@@ -102,96 +105,319 @@
     blue{
         color: #388BFF;
     }
+    bluelink{
+        color: #388BFF;
+        font-weight: 400;
+        letter-spacing: -0.19px;
+    }
+    dot{
+        color: #388BFF;
+        font-family: Poppins;
+        font-size: 90px;
+
+    }
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+        -webkit-box-shadow: 0 0 0 30px #454F59 inset !important;
+        -webkit-text-fill-color: #FFF !important;
+        -webkit-text-size-adjust: 1px;
+        transition: background-color 5000s ease-in-out 0s;
+    }
+    .name-input{
+        display: flex;
+        flex-direction: row;
+        margin-top: 10px;
+        gap: 0.5px;
+    }
+   
+    
+    .name{
+        position: relative;
+        width: 167px;
+        height: 50px;
+        
+        border: 2px solid #454F59;
+        border-radius: 18px ;
+        background: #454F59;
+        padding-left: 20px;
+        color: #ffffff;
+        outline: none;
+        transition: all 0.3s ease;
+
+    }
+    .input-fields{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        margin-top: -20px;
+        outline: none;
+        
+    }
+
+    .em-password{
+    
+        position: relative;
+        width: 380px;
+        height: 50px;
+        flex-shrink: 0;
+        border: 2px solid #454F59;
+        border-radius: 18px ;
+        background: #454F59;
+        padding-left: 20px;
+        
+        color: #ffffff;
+        outline: none;
+        transition: all 0.3s ease;
+    }
+    .name:focus + .fname,
+    .name:not(:placeholder-shown) + .fname {
+        left: 21px;
+        margin-top: 3%;
+        transform: translateY(-50%);
+        font-family: Geist;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: normal;
+        letter-spacing: -0.32px;
+    }
+    .name:focus + .lname,
+    .name:not(:placeholder-shown) + .lname {
+        margin-left:2px ;
+        margin-top: 3%;
+        transform: translateY(-50%);
+        font-family: Geist;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: normal;
+        letter-spacing: -0.32px;
+    }
+    .fname{
+        position: absolute;
+        left: 20px;
+        margin-top: 6%;
+        transform: translateY(-50%);
+        color: #8C9BAB;
+        font-family: Geist;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: normal;
+        letter-spacing: -0.32px;
+        pointer-events: none;
+        transition: 0.3s ease all;
+    }
+    .lname{
+        position: absolute;
+        left: 230px;
+        margin-top: 6%;
+        transform: translateY(-50%);
+        color: #8C9BAB;
+        font-family: Geist;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: normal;
+        letter-spacing: -0.32px;
+        pointer-events: none;
+        transition: 0.3s ease all;
+    }
+    .pass-label{
+        position: absolute;
+        left: 20px;
+        margin-top: 40px;
+        transform: translateY(-50%);
+        color: #8C9BAB;
+        font-family: Geist;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: normal;
+        letter-spacing: -0.32px;
+        pointer-events: none;
+        transition: 0.3s ease all;
+
+    }
+    .em-password:focus + .pass-label,
+    .em-password:not(:placeholder-shown) + .pass-label {
+        left: 20px;
+        margin-top: 25px;
+        transform: translateY(-50%);
+        
+        font-family: Geist;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: normal;
+        letter-spacing: -0.32px;
+    }
+    .em-password::placeholder{
+        color: transparent;
+    }
+    .name:focus,.em-password:focus,.email-input:focus{
+        
+        border: 2px  solid #388BFF;
+        background: #4D5761;
+        box-shadow: 0px 0px 13.2px -2px rgba(56, 139, 255, 0.73);
+    }
+    .otp-btn{
+        position: absolute;
+        border: none;
+        margin-top: 12.5px;
+        left: 215.5px;
+        width: 190px;
+        height: 55px;
+    
+        border-radius: 0 18px 18px 0;
+        background: #388BFF
+    }
+    .otp-txt{
+        color: #FFF;
+        text-align: center;
+        font-family: Geist;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        overflow: hidden;
+        cursor: pointer;
+    }
+    .otp-btn:hover{
+        background: #579cfb;
+
+    }
+    .icon-left{
+        position: relative;
+        margin-top: 5%;
+        right: 45px;
+        transform: scale(1.1);
+        opacity: 0.3;
+    }
+    .icon-right{
+        position: relative;
+        margin-top: 5%;
+        right: 45px;
+        transform: scale(1.1);
+        opacity: 0.3;
+    }
+
+    .email-input{
+        position: relative;
+        width: 380px;
+        height: 50px;
+        
+        border: 2px solid #454F59;
+        border-radius: 18px ;
+        background: #454F59;
+        padding-left: 20px;
+        color: #ffffff;
+        outline: none;
+        transition: all 0.3s ease;
+
+    }
+    .email-input:focus + .email-label,
+    .email-input:not(:placeholder-shown) + .email-label {
+        left: 20px;
+        margin-top: 25px;
+        transform: translateY(-50%);
+        font-family: Geist;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: normal;
+        letter-spacing: -0.32px;
+    }
+    .email-label{
+        position: absolute;
+        left: 20px;
+        margin-top: 40px;
+        transform: translateY(-50%);
+        color: #8C9BAB;
+        font-family: Geist;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: normal;
+        letter-spacing: -0.32px;
+        pointer-events: none;
+        transition: 0.3s ease all;
+    }
+    .icon-mail{
+        position: absolute;
+        margin-top: 32px;
+        left: 360px;
+        transform: scale(1.1);
+        opacity: 0.3;
+        pointer-events: none;
+    }
+    
+    .sn-btn{
+        position: relative;
+        width: 406px;
+        height: 46px;
+        border: 2px; ;
+        background: #388BFF;
+        border-radius: 15px;
+        transition: all 0.3s ease;
+        color: #FFF;
+        text-align: center;
+        font-family: Geist;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        overflow: hidden;
+        cursor: pointer;
+       }
+    
+       .sn-btn:hover{
+        background: #4a96ff;
+        border: 2px solid #ffffff;
+        box-shadow: 0px 0px 15px 0px rgba(56, 139, 255, 0.6);
+        transition: all 0.05s ease;
+    }
+       
+       /* Shine effect */
+       .sn-btn:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 50%;
+        height: 100%;
+        
+        background: linear-gradient(
+          to right,
+          rgba(255, 255, 255, 0) 0%,
+          rgba(255, 255, 255, 0.3) 50%,
+          rgba(255, 255, 255, 0) 100%
+        );
+        transform: skewX(45deg);
+        transition: all 0.80s ease;
+       }
+       
+       .sn-btn:hover:before {
+        left: 150%;
+        
+       }
     .desc{
-        width: 430px;
+        width: 450px;
         height: 36px;
         flex-shrink: 0;
         color: #FFF;
         font-family: Geist;
         font-size: 16px;
         font-style: normal;
-        font-weight: 200;
+        font-weight: 300;
         line-height: 18px; /* 112.5% */
         letter-spacing: -0.16px;
-        margin-top: 40px;
+        margin-top: 30px;
         margin-left: 5px;
     }
-    .get-started{
-        position: relative;
-        background-color: #38414a00;
-        width: 135px;
-        height: 40px;
-        border: 3px solid #388BFF;
-        border-radius: 50px;
-        top: -30px;
-    }
-    .circle{
-        position: absolute;
-        width: 35px;
-        height: 35px;
-        background: #388BFF;
-        border-radius: 50px;
-        left: 0;
-        top: -0px;
-        ;
-        transition: 0.3s cubic-bezier(1,0,.8,1);
-    }
-    .get-started:hover{  
-        box-shadow: 0px 0px 14px 0px rgba(56, 139, 255, 0.78);
-        color: #FAFBFC;
-        border: 3px solid #FAFBFC;
-        transition: .3s;
-    }
-    .get-started:hover .circle{
-        width: 100%;
-
-    }
-    .arrow{
-        position: absolute;
-        width: 10px;
-        height: 10px;
-        border-top: 3px solid #fff;
-        border-right: 3px solid #fff;
-        transform: rotate(45deg);
-        top: 11.2px;
-        left: 9px;
-        transition: .3s;
-
-    }
-    .get-started:hover .arrow{
-        left: 20px;
-    }
-    .arrow:before{
-        content: '';
-        position: absolute;
-        width: 15px;
-        height: 3px;
-        background: #fff;
-        transform: rotate(-45deg);
-        left: -3.5px;
-        top: 3.6px;
-        opacity: 0;
-        transition: .3s;
-    }
-    .get-started:hover .arrow:before{
-        opacity: 1;
-        
-    }
-    .btext{
-        color: #FFF;
-        position: relative;
-        text-align: center;
-        font-family: Montserrat;
-        font-size: 11px;
-        font-style: normal;
-        font-weight: 600;
-        line-height: normal;
-        letter-spacing: -0.11px;
-        text-transform: uppercase;
-        padding: 0px 0px 0px 26px;
-        top: -1px;
-        
-    }
+    
     .navbar {
         display: flex;
         position: absolute;
@@ -214,6 +440,7 @@
 
     .nav-links {
         display: flex;
+        font-family: Montserrat;
         gap: 10px; /* Keep spacing between items */
         margin-left: auto; /* Push links to the right */
         margin-right: 80px; /* Add some margin from the right edge */
@@ -501,17 +728,34 @@
     <div class="content-box">
 
         <div class="content-text">
-        Swift <br>
-        <blue>Smart</blue> <br>
-        Seamless <br>
-        <p class="desc">A unified platform to manage hostel accommodations, student verification and intelligent room allotment.</p>
-        <a href="/pages/registration.html"><button class="get-started">
-            <span class="circle">
-                <span class="arrow"></span>
-            </span>
-            <span class="btext">Get Started</span>
-        </button></a>
+        Create<br/><blue>new</blue> account<dot>.</dot> <br>
+        <p class="desc">Have an account ?<a class = "desc" href="/pages/login.html"><bluelink>Sign in </bluelink></a></p>
+        <div class="input-fields">
+        <div class="name-input"><input type="name" class="name" id="fname" placeholder=" ">
+        <label for="name" class="fname">First name</label>
+      <svg class="icon-left" xmlns="http://www.w3.org/2000/svg" width="20" height="13" viewBox="0 0 20 13" fill="none">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M3 0C1.34315 0 0 1.34315 0 3V10C0 11.6569 1.34315 13 3 13H17C18.6569 13 20 11.6569 20 10V3C20 1.34315 18.6569 0 17 0H3ZM5 7C6.10457 7 7 6.10457 7 5C7 3.89543 6.10457 3 5 3C3.89543 3 3 3.89543 3 5C3 6.10457 3.89543 7 5 7ZM2 10C2 9.60603 2.0776 9.21593 2.22836 8.85195C2.37913 8.48797 2.6001 8.15726 2.87868 7.87868C3.15726 7.6001 3.48797 7.37913 3.85195 7.22836C4.21593 7.0776 4.60604 7 5 7C5.39397 7 5.78407 7.0776 6.14805 7.22836C6.51203 7.37913 6.84275 7.6001 7.12132 7.87868C7.3999 8.15726 7.62088 8.48797 7.77164 8.85195C7.9224 9.21593 8 9.60604 8 10L5 10H2ZM10.5 4C10.2239 4 10 4.22386 10 4.5C10 4.77614 10.2239 5 10.5 5H17.5C17.7761 5 18 4.77614 18 4.5C18 4.22386 17.7761 4 17.5 4H10.5ZM10 6.5C10 6.22386 10.2239 6 10.5 6H15.5C15.7761 6 16 6.22386 16 6.5C16 6.77614 15.7761 7 15.5 7H10.5C10.2239 7 10 6.77614 10 6.5ZM10.5 8C10.2239 8 10 8.22386 10 8.5C10 8.77614 10.2239 9 10.5 9H13.5C13.7761 9 14 8.77614 14 8.5C14 8.22386 13.7761 8 13.5 8H10.5Z" fill="white" style="mix-blend-mode:soft-light"/>
+          </svg>
+          <input type="name" class="name" id="lname" placeholder=" ">
+          <label for="name" class="lname">Last name</label>
+          <svg class="icon-right" xmlns="http://www.w3.org/2000/svg" width="20" height="13" viewBox="0 0 20 13" fill="none">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M3 0C1.34315 0 0 1.34315 0 3V10C0 11.6569 1.34315 13 3 13H17C18.6569 13 20 11.6569 20 10V3C20 1.34315 18.6569 0 17 0H3ZM5 7C6.10457 7 7 6.10457 7 5C7 3.89543 6.10457 3 5 3C3.89543 3 3 3.89543 3 5C3 6.10457 3.89543 7 5 7ZM2 10C2 9.60603 2.0776 9.21593 2.22836 8.85195C2.37913 8.48797 2.6001 8.15726 2.87868 7.87868C3.15726 7.6001 3.48797 7.37913 3.85195 7.22836C4.21593 7.0776 4.60604 7 5 7C5.39397 7 5.78407 7.0776 6.14805 7.22836C6.51203 7.37913 6.84275 7.6001 7.12132 7.87868C7.3999 8.15726 7.62088 8.48797 7.77164 8.85195C7.9224 9.21593 8 9.60604 8 10L5 10H2ZM10.5 4C10.2239 4 10 4.22386 10 4.5C10 4.77614 10.2239 5 10.5 5H17.5C17.7761 5 18 4.77614 18 4.5C18 4.22386 17.7761 4 17.5 4H10.5ZM10 6.5C10 6.22386 10.2239 6 10.5 6H15.5C15.7761 6 16 6.22386 16 6.5C16 6.77614 15.7761 7 15.5 7H10.5C10.2239 7 10 6.77614 10 6.5ZM10.5 8C10.2239 8 10 8.22386 10 8.5C10 8.77614 10.2239 9 10.5 9H13.5C13.7761 9 14 8.77614 14 8.5C14 8.22386 13.7761 8 13.5 8H10.5Z" fill="white" style="mix-blend-mode:soft-light"/>
+          </svg>
         </div>
+        
+        <div class="em"><input type="email" class="email-input" id="email" placeholder=" ">
+        <label for="email" class="email-label">Email address</label>
+        <svg class="icon-mail" xmlns="http://www.w3.org/2000/svg" width="20" height="13" viewBox="0 0 20 13" fill="none">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M0.206227 1.90471C0.0730992 2.24402 0 2.61347 0 3V10C0 11.6569 1.34315 13 3 13H17C18.6569 13 20 11.6569 20 10V3C20 2.61348 19.9269 2.24404 19.7938 1.90473C19.78 1.91471 19.7656 1.92409 19.7505 1.9328L10.2505 7.4328C10.0956 7.52251 9.90447 7.52251 9.7495 7.4328L0.249504 1.9328C0.234448 1.92408 0.220018 1.9147 0.206227 1.90471ZM0.719454 1.05078C0.729927 1.05591 0.740295 1.06144 0.75054 1.06737L10 6.42233L19.2495 1.06737C19.2597 1.06144 19.2701 1.05593 19.2806 1.05081C18.7303 0.407642 17.9128 0 17 0H3C2.08724 0 1.26969 0.407633 0.719454 1.05078Z" fill="white" style="mix-blend-mode:soft-light"/>
+          </svg></div>
+
+        <div class="pass"><input type="text" class="em-password" id="em-password" placeholder=" ">
+        <label for="text" class="pass-label">Enter OTP</label>
+        <button class="otp-btn"><span class = "otp-txt">Get OTP</span></button>
+        </div>
+        <div class="s-btn"><button class="sn-btn">Sign Up</button></div>
+        </div></div>
+        
         <img src="/assets/ellipse-104.svg" alt="" class="ellipse">
 
     </div>
