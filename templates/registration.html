@@ -1,0 +1,103 @@
+{% extends "base.html" %} {% block title %}Registration{% endblock %} {%block
+styles%} {{ super() }}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='/css/registration.css') }}"
+/>
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='/css/form-fixes.css') }}"
+/>
+<script src="{{ url_for('static', filename='js/otp.js') }}" defer></script>
+{% endblock %}{%block navlink%}<a class="sign-in" href="{{ url_for('login')}}"
+  >Sign In</a
+>{%endblock%}
+{% block content %}
+
+<div class="content-text">
+  Create<br /><blue>new</blue> account<dot>.</dot> <br />
+  <p class="desc">
+    Have an account ?<a class="desc" href="{{ url_for('login')}}"
+      ><bluelink>Sign in </bluelink></a
+    >
+  </p>
+  <div class="input-fields">
+    <div class="name-input">      <form method="post">
+      {{ form.hidden_tag() }}
+
+      <input type="name" class="name" name="name" id="name" placeholder=" " value="{{ request.form.get('name', '') }}" required/>
+      <label for="name" class="fname">First name</label>
+      <svg
+        class="icon-left"
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="13"
+        viewBox="0 0 20 13"
+        fill="none"
+      >
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M3 0C1.34315 0 0 1.34315 0 3V10C0 11.6569 1.34315 13 3 13H17C18.6569 13 20 11.6569 20 10V3C20 1.34315 18.6569 0 17 0H3ZM5 7C6.10457 7 7 6.10457 7 5C7 3.89543 6.10457 3 5 3C3.89543 3 3 3.89543 3 5C3 6.10457 3.89543 7 5 7ZM2 10C2 9.60603 2.0776 9.21593 2.22836 8.85195C2.37913 8.48797 2.6001 8.15726 2.87868 7.87868C3.15726 7.6001 3.48797 7.37913 3.85195 7.22836C4.21593 7.0776 4.60604 7 5 7C5.39397 7 5.78407 7.0776 6.14805 7.22836C6.51203 7.37913 6.84275 7.6001 7.12132 7.87868C7.3999 8.15726 7.62088 8.48797 7.77164 8.85195C7.9224 9.21593 8 9.60604 8 10L5 10H2ZM10.5 4C10.2239 4 10 4.22386 10 4.5C10 4.77614 10.2239 5 10.5 5H17.5C17.7761 5 18 4.77614 18 4.5C18 4.22386 17.7761 4 17.5 4H10.5ZM10 6.5C10 6.22386 10.2239 6 10.5 6H15.5C15.7761 6 16 6.22386 16 6.5C16 6.77614 15.7761 7 15.5 7H10.5C10.2239 7 10 6.77614 10 6.5ZM10.5 8C10.2239 8 10 8.22386 10 8.5C10 8.77614 10.2239 9 10.5 9H13.5C13.7761 9 14 8.77614 14 8.5C14 8.22386 13.7761 8 13.5 8H10.5Z"
+          fill="white"
+          style="mix-blend-mode: soft-light"
+        />
+      </svg>
+      <input type="name" class="name" name="surname" id="surname" placeholder=" " value="{{ request.form.get('surname', '') }}" required/>
+      <label for="name" class="lname">Last name</label>
+      <svg
+        class="icon-right"
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="13"
+        viewBox="0 0 20 13"
+        fill="none"
+      >
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M3 0C1.34315 0 0 1.34315 0 3V10C0 11.6569 1.34315 13 3 13H17C18.6569 13 20 11.6569 20 10V3C20 1.34315 18.6569 0 17 0H3ZM5 7C6.10457 7 7 6.10457 7 5C7 3.89543 6.10457 3 5 3C3.89543 3 3 3.89543 3 5C3 6.10457 3.89543 7 5 7ZM2 10C2 9.60603 2.0776 9.21593 2.22836 8.85195C2.37913 8.48797 2.6001 8.15726 2.87868 7.87868C3.15726 7.6001 3.48797 7.37913 3.85195 7.22836C4.21593 7.0776 4.60604 7 5 7C5.39397 7 5.78407 7.0776 6.14805 7.22836C6.51203 7.37913 6.84275 7.6001 7.12132 7.87868C7.3999 8.15726 7.62088 8.48797 7.77164 8.85195C7.9224 9.21593 8 9.60604 8 10L5 10H2ZM10.5 4C10.2239 4 10 4.22386 10 4.5C10 4.77614 10.2239 5 10.5 5H17.5C17.7761 5 18 4.77614 18 4.5C18 4.22386 17.7761 4 17.5 4H10.5ZM10 6.5C10 6.22386 10.2239 6 10.5 6H15.5C15.7761 6 16 6.22386 16 6.5C16 6.77614 15.7761 7 15.5 7H10.5C10.2239 7 10 6.77614 10 6.5ZM10.5 8C10.2239 8 10 8.22386 10 8.5C10 8.77614 10.2239 9 10.5 9H13.5C13.7761 9 14 8.77614 14 8.5C14 8.22386 13.7761 8 13.5 8H10.5Z"
+          fill="white"
+          style="mix-blend-mode: soft-light"
+        />
+      </svg>
+    </div>    <div class="em">
+      <input type="email" name="email"  class="email-input" id="email" placeholder=" " value="{{ request.form.get('email', '') }}" required/>
+      <label for="email" class="email-label">Email address</label>
+      <svg
+        class="icon-mail"
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="13"
+        viewBox="0 0 20 13"
+        fill="none"
+      >
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M0.206227 1.90471C0.0730992 2.24402 0 2.61347 0 3V10C0 11.6569 1.34315 13 3 13H17C18.6569 13 20 11.6569 20 10V3C20 2.61348 19.9269 2.24404 19.7938 1.90473C19.78 1.91471 19.7656 1.92409 19.7505 1.9328L10.2505 7.4328C10.0956 7.52251 9.90447 7.52251 9.7495 7.4328L0.249504 1.9328C0.234448 1.92408 0.220018 1.9147 0.206227 1.90471ZM0.719454 1.05078C0.729927 1.05591 0.740295 1.06144 0.75054 1.06737L10 6.42233L19.2495 1.06737C19.2597 1.06144 19.2701 1.05593 19.2806 1.05081C18.7303 0.407642 17.9128 0 17 0H3C2.08724 0 1.26969 0.407633 0.719454 1.05078Z"
+          fill="white"
+          style="mix-blend-mode: soft-light"
+          />
+        </svg>
+        <button type="submit"  class="otp-btn"><span class="otp-txt">Get OTP</span></button>
+      </form>
+    </div>    <div class="pass" id="otpForm">
+      <form method="post" action="{{ url_for('verify_signup') }}">
+      {{ otp_form.hidden_tag() if otp_form else "" }}
+      {{ otp_form.email() if otp_form else "" }}
+      <input type="text" name="otp" class="em-password" id="otp" placeholder=" " required/>
+      <label for="text" class="pass-label">Enter OTP</label>
+      <div class="s-btn"><button type="submit" class="sn-btn">Sign Up</button></div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<img
+  src="{{ url_for('static', filename='/images/ellipse-104.svg') }}"
+  alt="element"
+  class="ellipse"
+/>
+
+{% endblock %}

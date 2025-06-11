@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}404 Not Found{% endblock %}
+
+
+{% block background %}
+
+    <div class="error-container">
+       
+        <img  src="{{ url_for('static', filename='/images/404.svg') }}" alt="404 Error" class="error-image">
+        <a href="{{ url_for('home') }}">
+            <button class="return-button">Return to Home</button>
+        </a>
+    </div>
+{% endblock %}

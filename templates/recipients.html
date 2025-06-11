@@ -1,0 +1,30 @@
+{% extends "dashboard.html" %}
+{% block title %}Recipients{% endblock %}
+
+{% block hidden%}
+class = 'welcome'
+{% endblock %}
+{% block dashboard%}
+ class="pointer-off"
+{% endblock %}
+{% block datasets%}
+ class="pointer-off"
+{% endblock %}
+{% block issues%}
+ class="pointer-off"
+{% endblock %}
+{% block verify%}
+ class="pointer-off"
+{% endblock %}
+{% block recipient %}
+ class="pointer-on"
+{% endblock %}
+{% block content %}
+{%endblock%}
+
+{% block scripts%}
+{{ super() }}
+
+{% endblock %}
+
+

@@ -38,10 +38,10 @@ The app will be available at [http://127.0.0.1:5000/](http://127.0.0.1:5000/).
 
 ## Technologies Used
 
-- **Frontend**: HTML, CSS, JavaScript
+- **Frontend**: HTML, CSS, JavaScript,Jinja
 - **Backend**: Flask (Python)
 - **Database**: SQL
-- **Real-Time Notifications**: Email, App Push Notifications
+- **Real-Time Notifications**: Email
 - **QR Code Verification**: jsQR (JavaScript)
 - **AI Integration**: OpenRouter API for error handling
 - **Version Control**: Git and GitHub for collaborative development
@@ -65,6 +65,4 @@ If you'd like to contribute, follow these steps:
    ```
 5. **Create a new Pull Request**
 
-## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

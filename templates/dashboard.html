@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="{{url_for('static' ,filename = '/images/favicon.ico')}}" type="image/x-icon" />
+  <title>{% block title %}Dashboard{%endblock%} > Dormease</title>
+  <!-- Global Stylesheet -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}" />
+</head>
+
+<body>
+  <div class="navbar">
+    <a href="{{ url_for('home')}}"><img class="nav-logo" src="{{ url_for('static', filename='/images/Dormease_logo.svg') }}" alt="" /></a>
+    <input type="checkbox" id="menu-toggle" />
+    <label for="menu-toggle" class="hamburger-menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+    <div class="nav-links">
+      <a class="animated-underline" href="{{ url_for('about')}}">About</a>
+      <a class="animated-underline" href="#">Support</a>
+      <a class="animated-underline" href="https://github.com/Shashank-Bharti/Dormease" target="_blank">Docs</a>
+    </div>
+  </div>
+
+  <div class="content-box">
+    <div {% block hidden %}class="welcome"{% endblock %}>Welcome, <span class="u-name">{{ user.name }}</span></div>
+
+    <div class="dashboard">
+      <span {% block dashboard%}class="pointer-on"{% endblock %}></span>
+      <span class="t-label"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="12" viewBox="0 0 14 12"
+          fill="none">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M11.9404 11.959C12.9213 10.9819 13.5903 9.73588 13.8629 8.37852C14.1356 7.02116 13.9996 5.61344 13.4722 4.33336C12.9448 3.05329 12.0496 1.95835 10.8999 1.18702C9.75022 0.415694 8.39761 0.00261145 7.01314 1.2341e-05C5.62868 -0.00258677 4.27453 0.405415 3.12194 1.17242C1.96936 1.93943 1.0701 3.03099 0.537887 4.30908C0.00567288 5.58717 -0.135592 6.99437 0.131955 8.35274C0.399502 9.71112 1.06385 10.9596 2.04097 11.9404L2.83442 11.15C2.01363 10.3261 1.45558 9.27734 1.23084 8.1363C1.0061 6.99527 1.12477 5.81322 1.57183 4.73963C2.01889 3.66604 2.77426 2.74912 3.74243 2.10484C4.71061 1.46055 5.84809 1.11783 7.01104 1.12001C8.17399 1.12219 9.31018 1.46918 10.2759 2.1171C11.2417 2.76502 11.9936 3.68476 12.4366 4.76003C12.8797 5.83529 12.9939 7.01778 12.7649 8.15796C12.5358 9.29814 11.9739 10.3448 11.15 11.1656L11.9404 11.959ZM7.96614 6.74096L9.85354 4.85356L9.14643 4.14645L7.25904 6.03384C7.17643 6.01175 7.08959 5.99997 7.00001 5.99997C6.44772 5.99997 6.00001 6.44768 6.00001 6.99997C6.00001 7.55225 6.44772 7.99997 7.00001 7.99997C7.55229 7.99997 8.00001 7.55225 8.00001 6.99997C8.00001 6.91039 7.98823 6.82357 7.96614 6.74096ZM5.00001 10.5999H9.00001V9.39987H5.00001V10.5999Z"
+            fill="white" />
+        </svg>Dashboard</span>
+    </div>
+    
+
+    
+    <div class="verify">
+      <span {% block verify %}class= "pointer-off"{% endblock %}  ></span><span class="t-label"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+          viewBox="0 0 14 14" fill="none">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M0 3C0 1.34315 1.34315 0 3 0H5V1H3C1.89543 1 1 1.89543 1 3V5H0V3ZM0 9V11C0 12.6569 1.34315 14 3 14H5V13H3C1.89543 13 1 12.1046 1 11V9H0ZM9 13V14H11C12.6569 14 14 12.6569 14 11V9H13V11C13 12.1046 12.1046 13 11 13H9ZM13 5H14V3C14 1.34315 12.6569 0 11 0H9V1H11C12.1046 1 13 1.89543 13 3V5Z"
+            fill="white" fill-opacity="0.75" />
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M12 7C12 7.55228 11.5523 8 11 8H3C2.44772 8 2 7.55228 2 7C2 6.44772 2.44772 6 3 6H11C11.5523 6 12 6.44772 12 7Z"
+            fill="white" fill-opacity="0.9" />
+        </svg>Verification</span>
+    </div>
+    
+   
+    <div class="recipient">
+      <span {% block recipient %}class="pointer-off"{%endblock%}></span><span class="t-label"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="14"
+          viewBox="0 0 15 14" fill="none">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M5.04789 7C6.72062 7 8.07663 5.65685 8.07663 4C8.07663 2.34315 6.72062 1 5.04789 1C3.37517 1 2.01916 2.34315 2.01916 4C2.01916 5.65685 3.37517 7 5.04789 7ZM8.89305 3.65549C9.00491 4.47626 8.77877 5.27443 8.30988 5.94194C8.69406 6.6628 9.50322 7.10562 10.3662 6.99022C11.4714 6.84244 12.2463 5.83526 12.0971 4.74062C11.9479 3.64598 10.9311 2.8784 9.82596 3.02618C9.45807 3.07537 9.12677 3.21981 8.85397 3.431C8.86966 3.50485 8.88272 3.5797 8.89305 3.65549ZM10.8724 13C10.8724 11.4926 10.2997 10.0469 9.28019 8.98101C8.9881 8.67562 8.6662 8.40857 8.32163 8.18296C8.78694 7.98737 9.28151 7.88464 9.78508 7.88464C10.9385 7.88464 12.0447 8.42358 12.8603 9.3829C13.6758 10.3422 14.134 11.6433 14.134 13H10.8724ZM8.61729 9.46447C9.56396 10.4021 10.0958 11.6739 10.0958 13H5.04789L0 13C0 11.6739 0.53183 10.4021 1.47849 9.46447C2.42516 8.52678 3.70911 8 5.04789 8C6.38668 8 7.67063 8.52678 8.61729 9.46447Z"
+            fill="white" fill-opacity="0.78" />
+        </svg>Recipient</span>
+    </div>
+    
+    
+    <div class="datasets">
+      <span {% block datasets %}class="pointer-off"{%endblock%}></span><span class="t-label"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="13"
+          viewBox="0 0 14 13" fill="none">
+          <path
+            d="M14 11.1943C12.6355 12.2706 10.0126 13.001 7 13.001C3.98745 13.001 1.36453 12.2706 0 11.1943V9.19336C1.36424 10.27 3.987 11.001 7 11.001C10.0135 11.001 12.6361 10.2694 14 9.19238V11.1943ZM14 7.69434C12.6355 8.77064 10.0126 9.50098 7 9.50098C3.98745 9.50098 1.36453 8.77064 0 7.69434V5.69336C1.36424 6.77001 3.987 7.50098 7 7.50098C10.0131 7.50098 12.636 6.77019 14 5.69336V7.69434ZM7 0C10.866 0 14 1.34315 14 3C14 4.65685 10.866 6 7 6C3.13401 6 0 4.65685 0 3C0 1.34315 3.13401 0 7 0Z"
+            fill="white" fill-opacity="0.8" />
+        </svg>Datasets</span>
+    </div>
+    
+    
+    <div  class="issues">
+      <span {% block issues %}class="pointer-off"{%endblock%}></span><span class="t-label"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="14"
+          viewBox="0 0 15 14" fill="none">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M5.78724 0.717639C6.37217 -0.239212 7.76192 -0.239214 8.34686 0.717637L13.9116 9.82051C14.5226 10.82 13.8032 12.1029 12.6317 12.1029H1.50235C0.330859 12.1029 -0.388475 10.82 0.222547 9.82051L5.78724 0.717639ZM7.25698 8.61999C7.19657 8.8031 6.93753 8.80311 6.87712 8.61999L5.32265 3.90826C5.27996 3.77887 5.37633 3.6456 5.51258 3.6456L8.62152 3.6456C8.75777 3.6456 8.85414 3.77887 8.81145 3.90826L7.25698 8.61999ZM7.06705 11.31C7.6509 11.31 8.12421 10.8367 8.12421 10.2528C8.12421 9.66899 7.6509 9.19568 7.06705 9.19568C6.4832 9.19568 6.00989 9.66899 6.00989 10.2528C6.00989 10.8367 6.4832 11.31 7.06705 11.31Z"
+            fill="white" fill-opacity="0.8" />
+        </svg>Issues</span>
+    </div>
+    
+    <div class="divider"><code>Developed by Capstone Group 14</code></div>
+   
+    <div class="sign-out">
+      <div class="circle">
+        <h2>{{user.name[0]}}</h2>
+      </div>
+      <button class="s-out">{#<span id="so-txt">Sign Out</span>#}<a id="so-txt" href="{{ url_for('logout') }}">Sign Out</a></button>
+    </div>
+    {% block content %}
+     
+    {%endblock%}
+  
+  </div>
+</body>
+{%block scripts%}
+<script src="{{ url_for('static', filename='js/selector.js') }}"></script>
+{%endblock%}
+</html>
