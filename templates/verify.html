@@ -1,5 +1,8 @@
 {% extends "dashboard.html" %}
 {% block title %}Verification{% endblock %}
+{% block styles%}
+{{ super() }} <link rel="stylesheet" href="{{url_for('static', filename='css/verify.css')}}">
+{% endblock %}
 
 {% block hidden%}
 class = 'welcome'
@@ -11,8 +14,19 @@ class = 'welcome'
     class="pointer-on"
 {% endblock %}
 {% block content %}
-{%endblock%}
+<div class="scanner-div">
 
+</div>
+<div class="scan-results">
+    <span class="top-header">Scan Results</span>
+
+</div>
+<div class="verify-controls">
+   <button class="check-in-btn " id="check-in">Scan for Check In</button>
+   <button class="check-out-btn" id="check-out">Scan for Check Out</button>
+</div> 
+
+{%endblock%}
 {% block scripts%}
 {{ super() }}
 
