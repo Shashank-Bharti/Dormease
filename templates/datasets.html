@@ -1,6 +1,10 @@
 {% extends "dashboard.html" %}
 {% block title %}Datasets{% endblock %}
 
+{% block styles %}
+{{ super() }} <link rel="stylesheet" href="{{ url_for('static', filename='css/datasets.css') }}" />
+{%endblock%}
+
 {% block hidden%}
 class = 'welcome'
 {% endblock %}
@@ -20,6 +24,71 @@ class = 'welcome'
  class="pointer-off"
 {% endblock %}
 {% block content %}
+<div class="data-placeholder">
+    {# this div will contain the dataset card that will load the different datasets if uploaded and selected #}
+    <span class="data-card">
+      
+    </span>
+</div>
+<div class="upload-container">
+
+  <span class="file-upload-section">
+    <div class="dnd-cont">
+      <label id='upld-label' for="file-upload">Upload C.S.V</label>
+      <p>Drag and drop your file here or click to upload</p>
+    </div>
+    <h4 class="upldtag">Uploaded File</h4>
+    <span class="upld-area">
+      <input class='area-content' type="file" id="file-upload" name="file-upload" accept=".csv" required />
+    </span>
+  </span>
+  <span class="customize-data">
+    
+    <div class="gender-div">
+      <select id="gender" name="gender" class="select-gender" required>
+        <option value="select" disabled selected>Allotment Category</option>
+        <option id="male" value="male">Male</option>
+        <option id="female" value="female">Female</option>
+      </select>
+    </div>
+    <div class="floors-div">
+      <select id="floors" name="floors" class="select-floors" required>
+        <option value="select" disabled selected>No. of Floors</option>
+        <option id="ground" value="0">Ground</option>
+        <option id="first" value="1">1</option>
+        <option id="second" value="2">2</option>
+        <option id="third" value="3">3</option>
+        <option id="fourth" value="4">4</option>
+        <option id="fifth" value="5">5</option>
+        <option id="sixth" value="6">6</option>
+        <option id="seventh" value="7">7</option>
+        <option id="eigth" value="8">8</option>
+        <option id="ninth" value="9">9</option>
+        <option id="tenth" value="10">10</option>
+      </select>
+    </div>
+    <div class="rooms-div">
+      <input type="number" class="rooms-input" id="rooms" name="rooms" placeholder="No. of Rooms / Floor" min='1' max='99' required />
+    </div>
+    <div class="occupancy-div">
+      <input type="number" class="occupancy-input" id="occupancy" name="occupancy" placeholder="Occupancy / Room" min='1' max='6' required />
+    </div>  
+  </span>
+  <span class="data-submit">
+   <div class="hostel-div">
+      <input type="text" class="hostel-name-input" id="hostel-name" name="hostel-name" placeholder="Hostel Name" required />
+    </div>
+    <div class="extra-info-div">
+      <textarea class="extra-info-textarea" id="extra-info" name="extra-info" placeholder="Extra Information (Optional)"></textarea>
+    </div>
+    <div class="allocate-btn-div">
+      <button class="smart-allocate-btn" id="smart-allocate-btn" type="submit">Smart Allocate</button>
+    </div>
+   </div>
+    
+  </span>
+</div>
+
 {%endblock%}
 
 {% block scripts%}

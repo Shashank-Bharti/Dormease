@@ -1,5 +1,5 @@
 /* Page-specific styles only */
-
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
 .art {
   position: relative;
   width: 105%;
@@ -62,7 +62,7 @@ svg.logo {
 /* Added content text styling */
 .content-text {
   color: #fff;
-  font-family: Geist;
+  font-family: "Geist", sans-serif;
   font-size: 90px;
   font-style: normal;
   font-weight: 900;
@@ -114,8 +114,8 @@ input:-webkit-autofill:active {
 
 .email-input {
   position: relative;
-  width: 380px;
-  height: 50px;
+  width: 25.5rem;
+  height: 3.5rem;
 
   border: 2px solid #454f59;
   border-radius: 18px;
@@ -136,8 +136,8 @@ input:-webkit-autofill:active {
 
 .em-password {
   position: relative;
-  width: 380px;
-  height: 50px;
+  width: 25.5rem;
+  height: 3.5rem;
   flex-shrink: 0;
   border: 2px solid #454f59;
   border-radius: 18px;
@@ -154,7 +154,7 @@ input:-webkit-autofill:active {
   left: 20px;
   margin-top: 10.5%;
   transform: translateY(-50%);
-  font-family: Geist;
+  font-family: "Geist", sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: 300;
@@ -168,7 +168,7 @@ input:-webkit-autofill:active {
   margin-top: 14%;
   transform: translateY(-50%);
   color: #8c9bab;
-  font-family: Geist;
+  font-family: "Geist", sans-serif;
   font-size: 18px;
   font-style: normal;
   font-weight: 300;
@@ -184,7 +184,7 @@ input:-webkit-autofill:active {
   margin-top: 14%;
   transform: translateY(-50%);
   color: #8c9bab;
-  font-family: Geist;
+  font-family: "Geist", sans-serif;
   font-size: 18px;
   font-style: normal;
   font-weight: 300;
@@ -200,7 +200,7 @@ input:-webkit-autofill:active {
   margin-top: 11%;
   transform: translateY(-50%);
 
-  font-family: Geist;
+  font-family: "Geist", sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: 300;
@@ -230,10 +230,10 @@ input:-webkit-autofill:active {
 .otp-btn {
   position: absolute;
   border: none;
-  top: 50.5px;
-  left: 215.5px;
-  width: 190px;
-  height: 56px;
+  top: 5.4rem;
+ left: 13.4rem;
+  width: 12.1rem;
+  height: 3.5rem;
 
   border-radius: 0 18px 18px 0;
   background: #388bff;
@@ -243,7 +243,7 @@ input:-webkit-autofill:active {
 .otp-txt {
   color: #fff;
   text-align: center;
-  font-family: Geist;
+  font-family: "Geist", sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
@@ -266,13 +266,17 @@ input:-webkit-autofill:active {
   transition: all 0.3s ease;
   color: #fff;
   text-align: center;
-  font-family: Geist;
+  font-family: "Geist", sans-serif;
   font-size: 18px;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
   overflow: hidden;
   cursor: pointer;
+}
+p .desc{
+  z-index: 3;
+
 }
 
 .sn-btn:hover {
@@ -310,7 +314,7 @@ input:-webkit-autofill:active {
   height: 36px;
   flex-shrink: 0;
   color: #fff;
-  font-family: Geist;
+  font-family: "Geist", sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 300;

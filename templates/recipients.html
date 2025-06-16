@@ -1,5 +1,8 @@
 {% extends "dashboard.html" %}
 {% block title %}Recipients{% endblock %}
+{% block styles%}
+{{ super() }} <link rel="stylesheet" href="{{url_for('static', filename='css/recipient.css')}}">
+{% endblock %}
 
 {% block hidden%}
 class = 'welcome'
@@ -20,6 +23,13 @@ class = 'welcome'
  class="pointer-on"
 {% endblock %}
 {% block content %}
+
+<div class="recipient-list">
+
+</div>
+<a class='verify-goto' href="{{url_for("verification")}}">Start Verification</a>
+
+
 {%endblock%}
 
 {% block scripts%}

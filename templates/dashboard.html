@@ -9,6 +9,8 @@
   <!-- Global Stylesheet -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}" />
   <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}" />
+  {% block styles%} 
+  {% endblock %}
 </head>
 
 <body>
@@ -90,13 +92,12 @@
       <div class="circle">
         <h2>{{user.name[0]}}</h2>
       </div>
-      <button class="s-out">{#<span id="so-txt">Sign Out</span>#}<a id="so-txt" href="{{ url_for('logout') }}">Sign Out</a></button>
+      {#<span id="so-txt">Sign Out</span>#}<a class='s-out' id="so-txt" href="{{ url_for('logout') }}">Sign Out</a>
     </div>
-    {% block content %}
+  </div>
+   {% block content %}
      
     {%endblock%}
-  
-  </div>
 </body>
 {%block scripts%}
 <script src="{{ url_for('static', filename='js/selector.js') }}"></script>

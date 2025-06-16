@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
+
+.recipient-list{
+        display: flex;
+    flex-direction: row;
+    position: relative;
+    margin-top: 18vh;
+    margin-left: 24.1vw;
+    width: 70vw;
+    height: 65vh;
+    background: #2c333a;
+    
+
+    border-radius: 17px;
+    border: 3px solid #454F59;
+}
+.verify-goto{
+    display: flex;
+    justify-content: center;
+    padding: 15px 100px 15px 100px;
+    text-align: center;
+    background-color: #388bff;
+    margin: 0 auto;
+    color: white;
+    width: 20vw;
+    border-radius: 17px;
+    margin-top: 6.2vh;
+    left: 8vw;
+}
+.verify-goto:hover{
+     border: 2px solid white;
+    box-shadow: 0px 0px 16px rgba(243, 248, 255, 0.5);
+    
+}

@@ -1,0 +1,360 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
+
+
+
+.data-placeholder {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    margin-top: 18vh;
+    margin-left: 24.1vw;
+    width: 70vw;
+    height: 39vh;
+    background: rgba(19, 19, 19, 0.11);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+
+    border-radius: 17px;
+    border: 2px solid #454F59;
+}
+
+.upload-container {
+    display: flex;
+    flex-direction: row;
+    bottom: 40px;
+    position: absolute;
+    place-items: center;
+    margin-left: 24.1vw;
+    width: 70vw;
+    height: 33vh;
+    flex-shrink: 0;
+    border-radius: 17px;
+    background: rgba(40, 46, 51, 0.91);
+    gap: 30px;
+}
+
+
+.file-upload-section {
+    display: flex;
+    flex-direction: column;
+    margin-left: 25px;
+    width: 33%;
+    height: 85%;
+    /* background: rgba(69, 79, 89, 0.66); */
+    gap: 8px;
+}
+
+.upld-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 30%;
+    margin: 0 auto;
+
+    border-radius: 17px;
+    border: 1px solid #7A8492;
+    background: #3B444D;
+
+}
+
+.area-content {
+    font-family: "Geist", sans-serif;
+    margin-left: 2rem;
+    width: 8vw;
+    font-weight: 400;
+    font-size: 15px;
+    color: #ffffff;
+    pointer-events: none;
+}
+
+.area-content::file-selector-button {
+    align-self: center;
+
+    display: none;
+
+}
+
+.dnd-cont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    border-radius: 18px;
+    border: 2px dashed #7A8492;
+    background: rgba(69, 79, 89, 0.66);
+    font-family: "Geist", sans-serif;
+}
+
+.dnd-cont p {
+    position: relative;
+    margin-top: 15px;
+    margin-bottom: -35px;
+    font-size: 14px;
+    color: #7A8492;
+}
+
+#upld-label {
+    padding: 0.5rem 1.5rem;
+    background-color: #388bff;
+    border-radius: 15px;
+    font-family: "Geist", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    text-align: center;
+    color: #ffffff;
+}
+
+#upld-label:hover {
+    border: 1px solid white;
+    box-shadow: 0px 0px 16px rgba(243, 248, 255, 0.5);
+
+}
+
+.upldtag {
+    font-family: "Geist", sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    color: #388bff;
+    text-align: center;
+
+}
+
+.customize-data {
+    display: flex;
+    flex-direction: column;
+    width: 28.5%;
+    height: 85%;
+    /* background: rgba(69, 79, 89, 0.66);
+    */
+    gap: 16.5px;
+}
+
+
+#female{
+    background-color: #DE3EE3;
+    
+}
+
+#male {
+    background: #388BFF;
+}
+.gender-div{
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 20%;
+    
+    
+}
+.floors-div{
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 20%;   
+}
+.rooms-div{
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 20%;
+}
+.occupancy-div{
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 20%;
+}
+.select-gender {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    align-items: center;
+    place-items: center;
+    text-align: center;
+    border-radius: 17px;
+    border: 1px solid #7A8492;
+    background: #3B444D;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    font-family: "Geist", sans-serif;
+    font-style: normal;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #8C9BAB;
+}
+.select-floors {
+    display: flex;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    align-items: center;
+    place-items: center;
+    text-align: center;
+    border-radius: 17px;
+    border: 1px solid #7A8492;
+    background: #3B444D;
+    width: 100%;
+    height: 100%;
+    font-family: "Geist", sans-serif;
+    font-style: normal;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #8C9BAB;
+}
+option{
+    color: #ffffffd8;
+}
+.rooms-input{
+    display: flex;
+
+    text-align: center;
+    border-radius: 17px;
+    border: 1px solid #7A8492;
+    background: #3B444D;
+    width: 100%;
+    height: 100%;
+    font-family: "Geist", sans-serif;
+    font-style: normal;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #8C9BAB;
+
+}
+.occupancy-input{
+    display: flex;
+
+    text-align: center;
+    border-radius: 17px;
+    border: 1px solid #7A8492;
+    background: #3B444D;
+    width: 100%;
+    height: 100%;
+    font-family: "Geist", sans-serif;
+    font-style: normal;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #8C9BAB;
+}
+input::placeholder {
+    color: #8C9BAB;
+    opacity: 1; /* Firefox */
+}
+input[type="number"]::-webkit-inner-spin-button
+{
+    -webkit-appearance: none; /* hide boxy UI elements */
+   
+}
+
+
+
+
+
+
+
+.data-submit {
+    display: flex;
+    flex-direction: column;
+    width: 29%;
+    height: 85%;
+    /* background: rgba(69, 79, 89, 0.66); */
+    gap: 15px;
+    
+}
+.hostel-div{
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 20%;
+}
+.extra-info-div{
+    display: flex;
+
+    
+    justify-content: center;
+    width: 100%;
+    height: 48%;
+}
+.allocate-btn-div{
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 20%;
+}
+
+.hostel-name-input{
+        display: flex;
+
+    text-align: center;
+    border-radius: 17px;
+    border: 1px solid #7A8492;
+    background: #3B444D;
+    width: 100%;
+    height: 100%;
+    font-family: "Geist", sans-serif;
+    font-style: normal;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #8C9BAB;
+}
+.extra-info-textarea{
+        display: flex;
+    resize: none;
+    text-align: center;
+    border-radius: 17px;
+    border: 1px solid #7A8492;
+    background: #3B444D;
+    width: 100%;
+    height: 100%;
+    font-family: "Geist", sans-serif;
+    font-style: normal;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #8C9BAB;
+}
+.extra-info-textarea::placeholder{
+    
+    color: #8C9BAB;
+    opacity: 1; /* Firefox */
+
+}
+.smart-allocate-btn{
+    
+    border-radius: 18px;
+    outline: none;
+    border: none;
+    font-family: "Geist",sans-serif;
+
+    font-style: normal;
+    font-size: 1rem;
+    font-weight: 400;
+    color: white;
+
+    background: #388BFF;
+    width: 100%;
+    height: 100%;
+}
+.smart-allocate-btn:hover{
+    border: 2px solid white;
+    box-shadow: 0px 0px 16px rgba(243, 248, 255, 0.5);
+
+}
