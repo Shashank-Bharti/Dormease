@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: dormease
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 2 --threads 2 --timeout 120 --preload
+    envVars:
+      - key: FLASK_DEBUG
+        value: false
+      - key: FLASK_SECRET_KEY
+        sync: false  # This will be set manually in Render dashboard
+      - key: MAIL_USERNAME
+        sync: false
+      - key: MAIL_PASSWORD
+        sync: false
+      - key: MAIL_DEFAULT_SENDER_NAME
+        value: DORMEASE
+      - key: MAIL_DEFAULT_SENDER_EMAIL
+        sync: false
+      # DATABASE_URL will be automatically provided by Render when you link PostgreSQL
+    autoDeploy: true

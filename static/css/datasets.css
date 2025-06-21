@@ -1,7 +1,56 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
 
+/* Flash Messages */
+.flash-messages {
+    position: fixed;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 20px;
+    border-radius: 15px;
+    background-color: #e3f2fd;
+    color: #388bff;
+    border: 2px solid #388bff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 9999;
+    opacity: 0;
+    animation: slideDown 0.5s forwards;
+}
 
+@keyframes slideDown {
+    0% {
+        top: -100px;
+        opacity: 0;
+    }
+
+    100% {
+        top: 5em;
+        opacity: 1;
+    }
+}
+
+.flash-messages.hide {
+    animation: slideUp 0.5s forwards;
+}
+
+@keyframes slideUp {
+    0% {
+        top: 5em;
+        opacity: 1;
+    }
+
+    100% {
+        top: -100px;
+        opacity: 0;
+    }
+}
+
+.flash-messages p {
+    margin: 5px 0;
+    color: #0d47a1;
+    font-family: Geist, sans-serif;
+    font-weight: 500;
+}
 
 .data-placeholder {
     display: flex;
@@ -14,23 +63,168 @@
     background: rgba(19, 19, 19, 0.11);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
+    overflow-x: auto;
+    overflow-y: hidden;
+    /* Enable horizontal scroll */
+    white-space: nowrap;
+    /* Prevent wrapping */
 
+    scroll-behavior: smooth;
     border-radius: 17px;
     border: 2px solid #454F59;
+    gap: 20px;
+}
+.data-placeholder::-webkit-scrollbar {
+    height: 8px;
+}
+.no-datasets{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 50%;
+    font-family: "Geist", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1rem;
+    color: #7A8492;
+}
+.data-card {
+    display: flex;
+    justify-items: center;
+    flex-direction: column;
+    position: relative;
+    margin: 25px;
+    flex-shrink: 0;
+    place-items: center;
+    width: 25%;
+    height: 85%;
+    border-radius: 24px;
+    box-sizing: border-box;
+    background: rgba(40, 46, 51, 0.91);
+
+}
+
+.inner-content {
+    place-items: center;
+    display: flex;
+    margin-top: 20px;
+    width: 80%;
+    height: 70%;
+    border-radius: 32px;
+    background: rgba(69, 79, 89, 0.66);
+
+}
+
+strong {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 50px;
+
+    font-family: "Geist", sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #ffffff;
+    text-align: center;
+}
+
+.h-name {
+    display: flex;
+
+    margin: 0 auto;
+
+    font-family: "Geist", sans-serif;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: #4f98ff;
+    text-align: center;
+    margin-top: -60px;
+}
+
+.r-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 78%;
+    height: 15%;
+    bottom: 68px;
+    color: #d4d4d4;
+    font-weight: 300;
+    border-radius: 0px 0px 30px 30px;
+    background: rgba(40, 46, 51, 0.469);
+}
+
+.r-link:hover {
+    background: rgba(40, 46, 51, 0.941);
+    color: #ffffff;
+}
+
+.p-footer {
+    position: absolute;
+    left: 48px;
+    font-family: monospace;
+    bottom: 23px;
+    color: #7A8492;
+}
+
+.del-ds {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: 16%;
+    height: 16%;
+    margin-top: 6px;
+    right: 10px;
+    bottom: 10px;
+    border-radius: 24px;
+    background: rgba(255, 82, 82, 0.66);
+    border: none;
+
+    color: #ffffff;
+    cursor: pointer;
+
+}
+
+.del-ds i {
+    transform: scale(1.2);
+}
+
+.del-ds:hover {
+    background: #ffffff;
+    color: #3B444D;
+    box-shadow: 0px 0px 26px rgba(255, 44, 44, 0.936);
+    border: 1px solid #ffffff;
 }
 
 .upload-container {
     display: flex;
-    flex-direction: row;
+
     bottom: 40px;
     position: absolute;
     place-items: center;
     margin-left: 24.1vw;
     width: 70vw;
     height: 33vh;
-    flex-shrink: 0;
+
     border-radius: 17px;
     background: rgba(40, 46, 51, 0.91);
+
+}
+
+.form-container {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    position: absolute;
+    place-items: center;
+    width: 70vw;
+    height: 33vh;
     gap: 30px;
 }
 
@@ -137,33 +331,27 @@
 }
 
 
-#female{
+#female {
     background-color: #DE3EE3;
-    
+
 }
 
 #male {
     background: #388BFF;
 }
-.gender-div{
+
+.gender-div {
     display: flex;
 
     align-items: center;
     justify-content: center;
     width: 100%;
     height: 20%;
-    
-    
-}
-.floors-div{
-    display: flex;
 
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 20%;   
+
 }
-.rooms-div{
+
+.floors-div {
     display: flex;
 
     align-items: center;
@@ -171,7 +359,8 @@
     width: 100%;
     height: 20%;
 }
-.occupancy-div{
+
+.rooms-div {
     display: flex;
 
     align-items: center;
@@ -179,6 +368,16 @@
     width: 100%;
     height: 20%;
 }
+
+.occupancy-div {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 20%;
+}
+
 .select-gender {
     appearance: none;
     -webkit-appearance: none;
@@ -198,6 +397,7 @@
     font-weight: 400;
     color: #8C9BAB;
 }
+
 .select-floors {
     display: flex;
     appearance: none;
@@ -217,10 +417,12 @@
     font-weight: 400;
     color: #8C9BAB;
 }
-option{
+
+option {
     color: #ffffffd8;
 }
-.rooms-input{
+
+.rooms-input {
     display: flex;
 
     text-align: center;
@@ -236,7 +438,8 @@ option{
     color: #8C9BAB;
 
 }
-.occupancy-input{
+
+.occupancy-input {
     display: flex;
 
     text-align: center;
@@ -251,14 +454,17 @@ option{
     font-weight: 400;
     color: #8C9BAB;
 }
+
 input::placeholder {
     color: #8C9BAB;
-    opacity: 1; /* Firefox */
+    opacity: 1;
+    /* Firefox */
 }
-input[type="number"]::-webkit-inner-spin-button
-{
-    -webkit-appearance: none; /* hide boxy UI elements */
-   
+
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    /* hide boxy UI elements */
+
 }
 
 
@@ -274,9 +480,10 @@ input[type="number"]::-webkit-inner-spin-button
     height: 85%;
     /* background: rgba(69, 79, 89, 0.66); */
     gap: 15px;
-    
+
 }
-.hostel-div{
+
+.hostel-div {
     display: flex;
 
     align-items: center;
@@ -284,15 +491,17 @@ input[type="number"]::-webkit-inner-spin-button
     width: 100%;
     height: 20%;
 }
-.extra-info-div{
+
+.extra-info-div {
     display: flex;
 
-    
+
     justify-content: center;
     width: 100%;
     height: 48%;
 }
-.allocate-btn-div{
+
+.allocate-btn-div {
     display: flex;
 
     align-items: center;
@@ -301,8 +510,8 @@ input[type="number"]::-webkit-inner-spin-button
     height: 20%;
 }
 
-.hostel-name-input{
-        display: flex;
+.hostel-name-input {
+    display: flex;
 
     text-align: center;
     border-radius: 17px;
@@ -316,8 +525,9 @@ input[type="number"]::-webkit-inner-spin-button
     font-weight: 400;
     color: #8C9BAB;
 }
-.extra-info-textarea{
-        display: flex;
+
+.extra-info-textarea {
+    display: flex;
     resize: none;
     text-align: center;
     border-radius: 17px;
@@ -331,19 +541,28 @@ input[type="number"]::-webkit-inner-spin-button
     font-weight: 400;
     color: #8C9BAB;
 }
-.extra-info-textarea::placeholder{
-    
+
+.extra-info-textarea::placeholder {
+
     color: #8C9BAB;
-    opacity: 1; /* Firefox */
+    opacity: 1;
+    /* Firefox */
 
 }
-.smart-allocate-btn{
-    
+
+.smart-allocate-btn {
+    display: flex;
+    flex-direction: row;
     border-radius: 18px;
     outline: none;
     border: none;
-    font-family: "Geist",sans-serif;
-
+    font-family: "Geist", sans-serif;
+    text-align: center;
+    justify-content: center;
+    place-content: center;
+    align-items: center;
+    margin: 0 auto;
+    padding: 0.5rem 1.5rem;
     font-style: normal;
     font-size: 1rem;
     font-weight: 400;
@@ -353,8 +572,15 @@ input[type="number"]::-webkit-inner-spin-button
     width: 100%;
     height: 100%;
 }
-.smart-allocate-btn:hover{
+
+.smart-allocate-btn:hover {
     border: 2px solid white;
     box-shadow: 0px 0px 16px rgba(243, 248, 255, 0.5);
 
+}
+.smart-allocate-btn svg{
+    margin-top: -5px;
+    width: 40px;
+    height: 40px;
+    fill: white;
 }

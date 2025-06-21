@@ -14,6 +14,15 @@
 </head>
 
 <body>
+  {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for message in messages %}
+                        <div class="flash-message">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+  {% endwith %}
   <div class="navbar">
     <a href="{{ url_for('home')}}"><img class="nav-logo" src="{{ url_for('static', filename='/images/Dormease_logo.svg') }}" alt="" /></a>
     <input type="checkbox" id="menu-toggle" />
@@ -97,9 +106,75 @@
   </div>
    {% block content %}
      
+     <div class="charts-section">
+      <div class="chart-container">
+        <div class="donut-chart">
+                <h3 class="donut-chart-title">Accomodation Status</h3>
+                    <canvas id="studentStatusChart"></canvas>
+                </div>
+      </div>
+      <div class="bar-container">
+        <div class="dataset-selection">
+          <label for="dataset-select">Select Dataset </label>
+            <select id="dataset-select" class="dataset-select">
+                <option value="">-- All Datasets Combined --</option>
+            </select>
+            <div id="dataset-warning" class="dataset-warning" style="display: none;">
+                ℹ️ Select a specific dataset to view detailed analytics for that hostel.
+            </div>
+        </div>
+        <div class="progress-bar-cont">
+          
+                    <div class="progress-info">
+                        <div class="progress-labels">
+                            <span class="progress-label-left">Rooms Occupied</span>
+                            
+                        </div>
+                        <div class="progress-bar-wrapper">
+                            <div class="progress-bar" id="progress-bar">
+                                <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+                                <span class="progress-label-right" id="occupancy-percentage">0%</span>
+                                <div class="progress-text" id="progress-text">0 / 0 Rooms</div>
+                            </div>
+                        </div>
+                        <div class="progress-stats">
+                            <div class="stat-box occupied">
+                              <span class="stat-text">Occupied</span>
+                              <span class="stat-number" id="occupied-count">0</span>
+                            </div>
+                            <div class="stat-box remaining">
+                              <span class="stat-text">Available</span>
+                              <span class="stat-number" id="remaining-count">0</span>
+                            </div>
+                        </div>
+                    </div>
+               
+        </div>
+      </div>
+
+    </div>
+     <div class="bottom-section">
+      <div class="activity-log">
+                <h3 class="chart-title" id='title-left' >Recent Activity</h3>
+                <div id="activity-container">
+                    <div class="loading">Loading activity data...</div>
+                </div>
+            </div>
+            
+            <!-- Stats Panel -->
+            <div class="stats-panel">
+                <h3 class="chart-title" id='title-right'>Statistics Overview</h3>
+                <div id="stats-container">
+                    <div class="loading">Loading statistics...</div>
+                </div>
+            </div>
+     </div>
     {%endblock%}
 </body>
 {%block scripts%}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="{{ url_for('static', filename='js/selector.js') }}"></script>
+<script src="{{ url_for('static', filename='js/flash.js') }}"></script>
+<script src="{{ url_for('static', filename='js/stats.js') }}"></script>
 {%endblock%}
 </html>

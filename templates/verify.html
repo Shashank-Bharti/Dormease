@@ -2,6 +2,8 @@
 {% block title %}Verification{% endblock %}
 {% block styles%}
 {{ super() }} <link rel="stylesheet" href="{{url_for('static', filename='css/verify.css')}}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<meta name="csrf-token" content="{{ csrf_token() }}">
 {% endblock %}
 
 {% block hidden%}
@@ -14,22 +16,480 @@ class = 'welcome'
     class="pointer-on"
 {% endblock %}
 {% block content %}
-<div class="scanner-div">
-
+<div class="dataset-selection2">
+            <label for="dataset-select">Select Active Dataset:</label>
+            <select id="dataset-select" class="dataset-select2">
+                <option value="">-- Choose a dataset to scan for --</option>
+                {% for dataset in datasets %}
+                <option value="{{ dataset.id }}">
+                    {{ dataset.hostel_name }} - {{ dataset.gender|title }} ({{ dataset.recipients|length }} recipients)
+                </option>
+                {% endfor %}
+            </select>
+            <div id="dataset-warning" class="dataset-warning" style="display: none;">
+                ⚠️ Please select a dataset before scanning. This ensures QR codes are only matched against recipients in the active dataset.
+            </div>
+        </div>
+<div class="scanner-container">
+    <div id="qr-scanner">
+        <div class="scanner-placeholder">
+         Starting Camera...
+        </div>
+    </div>                  
+    <div class="scanner-overlay">
+        <div class="scan-frame">
+        <div class="scan-line"></div>
+    </div>
+    </div>
+    </div>
 </div>
 <div class="scan-results">
-    <span class="top-header">Scan Results</span>
-
+    <span class="top-header">Scan Results<button id="refresh-btn" class="refresh-btn"><i class="fa-solid fa-rotate-right"></i></button></span>
+    <div id="scan-log" class="scan-log">
+                        <div class="log-entry welcome">
+                            <span class="log-time">--:--:--</span>
+                            <span class="log-status">Loading</span>
+                            <span class="log-message">Getting Things Ready</span>
+                        </div>
+                    </div>
 </div>
 <div class="verify-controls">
-   <button class="check-in-btn " id="check-in">Scan for Check In</button>
-   <button class="check-out-btn" id="check-out">Scan for Check Out</button>
+   <button class="check-in-btn " id="checkin-btn">Scan for Check-In</button>
+   <button class="check-out-btn" id="checkout-btn">Scan for Check-Out</button>
 </div> 
 
 {%endblock%}
 {% block scripts%}
-{{ super() }}
+<script src="{{ url_for('static', filename='js/selector.js') }}"></script>
+<script src="{{ url_for('static', filename='js/flash.js') }}"></script>
+<script src="https://unpkg.com/html5-qrcode@2.3.4/html5-qrcode.min.js"></script>
+    
+    <script>
+        class QRVerificationSystem {
+            constructor() {
+                this.html5QrCode = null;
+                this.isScanning = false;
+                this.scanMode = null; // 'checkin' or 'checkout'
+                this.scannedIds = new Set(); // Track scanned QR codes
+                this.isProcessing = false; // Prevent multiple simultaneous scans
+                this.logs = []; // Store scan logs for table display
+                
+                this.initializeEventListeners();
+                this.startCameraPreview(); // Auto-start camera on page load
+            }
 
+            initializeEventListeners() {
+                // Dynamic button handlers - buttons toggle between start and stop
+                document.getElementById('checkin-btn').addEventListener('click', () => {
+                    if (this.isScanning && this.scanMode === 'checkin') {
+                        this.stopScanning();
+                    } else {
+                        this.handleButtonClick('checkin');
+                    }
+                });
+                
+                document.getElementById('checkout-btn').addEventListener('click', () => {
+                    if (this.isScanning && this.scanMode === 'checkout') {
+                        this.stopScanning();
+                    } else {
+                        this.handleButtonClick('checkout');
+                    }
+                });
+                
+                // Dataset selection change handler
+                document.getElementById('dataset-select').addEventListener('change', (e) => {
+                    const warning = document.getElementById('dataset-warning');
+                    if (e.target.value === '') {
+                        warning.style.display = 'block';
+                    } else {
+                        warning.style.display = 'none';
+                    }
+                    
+                    // Stop scanning if dataset is changed while scanning
+                    if (this.isScanning) {
+                        this.stopScanning();
+                        this.addLog('info', 'Dataset Changed', 'Scanner stopped due to dataset change');
+                    }
+                });
+                
+                // Refresh button handler
+                document.getElementById('refresh-btn').addEventListener('click', () => {
+                    this.refreshPage();
+                });
+                
+                // Show warning initially if no dataset selected
+                const datasetSelect = document.getElementById('dataset-select');
+                const warning = document.getElementById('dataset-warning');
+                if (datasetSelect.value === '') {
+                    warning.style.display = 'block';
+                }
+            }
+            
+            // Auto-start camera preview on page load
+            async startCameraPreview() {
+                try {
+                    this.html5QrCode = new Html5Qrcode("qr-scanner");
+                    
+                    const config = {
+                        fps: 10,
+                        qrbox: { width: 250, height: 250 },
+                        aspectRatio: 1.0
+                    };
+                    
+                    await this.html5QrCode.start(
+                        { facingMode: "environment" },
+                        config,
+                        (decodedText, decodedResult) => {
+                            // Only process QR if scan mode is active
+                            if (this.scanMode) {
+                                this.handleQRScan(decodedText);
+                            }
+                        },
+                        (errorMessage) => {
+                            // Handle scan error silently during preview
+                        }
+                    );
+                    
+                    this.addLog('info', 'CAMERA READY', 'Camera preview active - Select scan mode to start scanning');
+                    
+                } catch (err) {
+                    console.error("Error starting camera preview:", err);
+                    this.addLog('warning', 'CAMERA UNAVAILABLE', 'Camera not accessible - Click scan buttons to try again');
+                    
+                    // Show placeholder if camera fails
+                    document.getElementById('qr-scanner').innerHTML = `
+                        <div class="scanner-placeholder">
+                            📱 Camera not available<br>Click a scan button to try again
+                        </div>
+                    `;
+                }
+            }
+            
+            handleButtonClick(mode) {
+                // Stop any current scanning first
+                if (this.isScanning) {
+                    this.stopScanning();
+                }
+                
+                // Start scanning for the new mode
+                this.startScanning(mode);
+            }
+            
+            addLog(type, status, message) {
+                const now = new Date();
+                const time = now.toTimeString().slice(0, 8);
+                
+                const logEntry = {
+                    time,
+                    type,
+                    status,
+                    message,
+                    timestamp: now.getTime()
+                };
+                
+                this.logs.push(logEntry);
+                this.updateLogDisplay();
+            }
+            
+            updateLogDisplay() {
+                const scanLog = document.getElementById('scan-log');
+                
+                // Keep only the last 50 logs
+                if (this.logs.length > 50) {
+                    this.logs = this.logs.slice(-50);
+                }
+                
+                // Clear and rebuild log display
+                scanLog.innerHTML = '';
+                
+                this.logs.forEach(log => {
+                    const logElement = document.createElement('div');
+                    logElement.className = `log-entry ${log.type}`;
+                    logElement.innerHTML = `
+                        <span class="log-time">${log.time}</span>
+                        <span class="log-status ${log.type}">${log.status}</span>
+                        <span class="log-message">${log.message}</span>
+                    `;
+                    scanLog.appendChild(logElement);
+                });
+                
+                // Auto-scroll to bottom
+                scanLog.scrollTop = scanLog.scrollHeight;
+            }
+            
+            refreshPage() {
+                // Stop camera and scanning if active
+                if (this.html5QrCode) {
+                    try {
+                        this.html5QrCode.stop();
+                    } catch (err) {
+                        console.error("Error stopping camera:", err);
+                    }
+                }
+                
+                // Add a brief message before refresh
+                this.addLog('info', 'REFRESHING', 'Refreshing verification system...');
+                
+                // Refresh the page after a short delay
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
+            }
+
+            async startScanning(mode) {
+                // Check if dataset is selected
+                const selectedDataset = document.getElementById('dataset-select').value;
+                if (!selectedDataset) {
+                    this.addLog('warning', 'NO DATASET', 'Please select a dataset before starting scan');
+                    return;
+                }
+                  this.scanMode = mode;
+                
+                // If camera is not already running, start it
+                if (!this.html5QrCode || !this.html5QrCode.getState()) {
+                    try {
+                        if (!this.html5QrCode) {
+                            this.html5QrCode = new Html5Qrcode("qr-scanner");
+                        }
+                        
+                        const config = {
+                            fps: 10,
+                            qrbox: { width: 180, height: 180 },
+                            aspectRatio: 1.0
+                        };
+                        
+                        await this.html5QrCode.start(
+                            { facingMode: "environment" },
+                            config,
+                            (decodedText, decodedResult) => {
+                                this.handleQRScan(decodedText);
+                            },
+                            (errorMessage) => {
+                                // Handle scan error silently
+                            }
+                        );
+                    } catch (err) {
+                        console.error("Error starting scanner:", err);
+                        this.addLog('error', 'CAMERA ERROR', 'Failed to start camera - Check permissions');
+                        return;
+                    }
+                }
+                
+                this.isScanning = true;
+                this.updateButtonStates();
+                this.addLog('info', 'SCANNER STARTED', `${mode.toUpperCase()} mode active - Ready to scan QR codes`);
+            }
+            
+            async stopScanning() {                // Don't stop the camera, just disable scanning mode
+                this.isScanning = false;
+                this.scanMode = null;
+                this.updateButtonStates();
+                this.addLog('info', 'SCANNER STOPPED', 'QR scanning paused - Camera preview continues');
+            }
+
+            async handleQRScan(qrData) {
+                // Prevent multiple simultaneous scans
+                if (this.isProcessing) {
+                    return;
+                }
+                
+                this.isProcessing = true;
+                
+                try {
+                    // Extract data using regex
+                    const extractedData = this.extractQRData(qrData);
+                    
+                    if (!extractedData) {
+                        this.addLog('error', 'Invalid QR Code', 'QR code format not recognized');
+                        return;
+                    }
+                    
+                    // Check if this QR was already scanned recently
+                    const qrHash = this.generateQRHash(extractedData);
+                    if (this.scannedIds.has(qrHash)) {
+                        this.addLog('warning', 'Duplicate Scan', `${extractedData.name} - Already processed`);
+                        return;
+                    }
+                    
+                    // Add to scanned IDs immediately to prevent duplicates
+                    this.scannedIds.add(qrHash);
+                    
+                    // Process the scan with delay
+                    await this.processQRScanWithDelay(extractedData, qrHash);
+                    
+                } finally {
+                    // Add a small delay before allowing next scan
+                    setTimeout(() => {
+                        this.isProcessing = false;
+                    }, 2000); // 2 second delay between scans
+                }
+            }
+              extractQRData(qrText) {
+                console.log('Original QR text:', qrText);
+                
+                // Enhanced regex patterns to handle the actual QR format
+                const patterns = [
+                    // Pattern 1: Name- ... Roll No- ... Mobile No- ...
+                    /Name-\s*(.+?)\s+Roll No-\s*(.+?)\s+Mobile No-\s*(.+)/i,
+                    // Pattern 2: Name- ... Mobile No- ... (no roll number)
+                    /Name-\s*(.+?)\s+Mobile No-\s*(.+)/i,
+                    // Pattern 3: Just name (fallback)
+                    /Name-\s*(.+)/i
+                ];
+                
+                for (let i = 0; i < patterns.length; i++) {
+                    const pattern = patterns[i];
+                    const match = qrText.match(pattern);
+                    if (match) {
+                        let result;
+                        
+                        if (i === 0) {
+                            // Full pattern with name, roll, mobile
+                            result = {
+                                name: match[1]?.trim() || '',
+                                rollNo: match[2]?.trim() || '',
+                                mobile: match[3]?.trim() || ''
+                            };
+                        } else if (i === 1) {
+                            // Pattern with name and mobile only
+                            result = {
+                                name: match[1]?.trim() || '',
+                                rollNo: '',
+                                mobile: match[2]?.trim() || ''
+                            };
+                        } else {
+                            // Name only pattern
+                            result = {
+                                name: match[1]?.trim() || '',
+                                rollNo: '',
+                                mobile: ''
+                            };
+                        }
+                        
+                        console.log(`QR Data parsed with pattern ${i + 1}:`, result);
+                        
+                        // Validate that we have at least a name
+                        if (result.name) {
+                            return result;
+                        }
+                    }
+                }
+                
+                console.error('No valid QR pattern matched for:', qrText);
+                return null;
+            }
+            
+            generateQRHash(data) {
+                return `${data.name}-${data.mobile}`.toLowerCase().replace(/\s+/g, '');
+            }
+            
+            async processQRScanWithDelay(extractedData, qrHash) {
+                // Show processing message
+                this.addLog('info', 'PROCESSING', `Verifying ${extractedData.name}...`);
+                
+                // Add 3-second delay to prevent glitch and give better user experience
+                await new Promise(resolve => setTimeout(resolve, 3000));
+                
+                await this.processQRScan(extractedData, qrHash);
+            }            async processQRScan(extractedData, qrHash) {
+                const selectedDataset = document.getElementById('dataset-select').value;
+                
+                try {
+                    const response = await fetch('/verify_qr_scan', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': this.getCSRFToken()
+                        },
+                        body: JSON.stringify({
+                            name: extractedData.name,
+                            roll_no: extractedData.rollNo,
+                            mobile: extractedData.mobile,
+                            scan_mode: this.scanMode,
+                            dataset_id: selectedDataset
+                        })
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        // Check if this was a mobile-only match with different name
+                        if (result.match_method && result.match_method.includes('mobile_only')) {
+                            this.addLog('warning', 'NAME MISMATCH', `QR Name: "${extractedData.name}" → Database Name: "${result.recipient.name}" (matched by phone)`);
+                        }
+                        this.displaySuccessResult(result);
+                    } else {
+                        this.addLog('error', 'FAILED', result.message);
+                    }
+                    
+                } catch (error) {
+                    console.error('Verification error:', error);
+                    this.addLog('error', 'NETWORK ERROR', 'Failed to verify recipient - Please try again');
+                }
+            }displaySuccessResult(result) {
+                const recipient = result.recipient;
+                const action = this.scanMode === 'checkin' ? 'checked in to' : 'checked out from';
+                const matchMethod = result.match_method || '';
+                
+                // Create detailed success message based on match method
+                let message = `${recipient.name} successfully ${action} ${recipient.hostel_allotted} Room No. ${recipient.room_no}.`;
+                
+                // Add match method information for user awareness
+                if (matchMethod.includes('mobile_only')) {
+                    message += ` ⚠️ Matched by phone number (${recipient.phone}) - name on QR may differ.`;
+                } else if (matchMethod === 'name_only') {
+                    message += ` ✓ Matched by name only.`;
+                } else if (matchMethod === 'fuzzy_name') {
+                    message += ` ⚠️ Matched by partial name - please verify identity.`;
+                } else {
+                    message += ` ✓ Exact match found.`;
+                }
+                
+                message += ` Email sent.`;
+                this.addLog('success', 'SUCCESS', message);
+            }
+            
+            updateButtonStates() {
+                const checkinBtn = document.getElementById('checkin-btn');
+                const checkoutBtn = document.getElementById('checkout-btn');
+                
+                // Update check-in button
+                if (this.isScanning && this.scanMode === 'checkin') {
+                    checkinBtn.innerHTML = 'Stop';
+                    checkinBtn.style.background = '#f44336';
+                    
+                    checkoutBtn.disabled = true;
+                } else {
+                    checkinBtn.innerHTML = 'Scan for Check-In';
+                    checkinBtn.style.background = '#388bff';
+                    checkoutBtn.disabled = false;
+                }
+                
+                // Update check-out button
+                if (this.isScanning && this.scanMode === 'checkout') {
+                    checkoutBtn.innerHTML = 'Stop';
+                    checkoutBtn.style.background = '#f44336';
+                    checkoutBtn.style.color = '#ffffff';
+                    checkinBtn.disabled = true;
+                } else {
+                    checkoutBtn.innerHTML = 'Scan for Check-Out';
+                    checkoutBtn.style.background = '#ffffff';
+                    checkoutBtn.style.color = '#388bff';
+                    checkinBtn.disabled = false;
+                }
+            }
+            
+            getCSRFToken() {
+                const meta = document.querySelector('meta[name="csrf-token"]');
+                return meta ? meta.getAttribute('content') : '';
+            }
+        }
+        
+        // Initialize the QR verification system when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            new QRVerificationSystem();
+        });
+    </script>
 {% endblock %}
 
 

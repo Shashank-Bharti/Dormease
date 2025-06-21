@@ -23,18 +23,99 @@ class = 'welcome'
  class="pointer-on"
 {% endblock %}
 {% block content %}
-
-<div class="recipient-list">
+<div class="filter-section">
+          <form method="GET" class="filter-form">
+        <div class="filter-group">
+          <label for="dataset_id">Filter by Dataset:</label>
+          <select id="dataset_id" name="dataset_id">
+            <option value="">All Datasets</option>
+            {% for dataset in datasets %}
+              <option value="{{ dataset.id }}" {% if selected_dataset and selected_dataset.id == dataset.id %}selected{% endif %}>
+                {{ dataset.hostel_name }} - {{ dataset.gender|title }} ({{ dataset.recipients|length }} recipients)
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+        <button type="submit" hidden class="filter-btn">Filter</button>
+      </form>
 
 </div>
-<a class='verify-goto' href="{{url_for("verification")}}">Start Verification</a>
+<div class="legends">
+    <div class="legend-item">
+        <span class="status-badge-legend status-checked-in-legend">Checked In</span>
+    
+    </div>
+    <div class="legend-item">
+        <span class="status-badge-legend status-checked-out-legend">Checked Out</span>
+        
+    </div>
+    <div class="legend-item">
+        <span class="status-badge-legend status-not-checked-in-legend">Not Checked In</span>
+        
+    </div>
+</div>
+{% if recipients %}
+    <div class="scroll-wrapper">
+        <div class="table-container">
+            <table class="recipients-table">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Gender</th>
+                    <th>Room No.</th>
+                    <th>Hostel</th>
+                    <th>Status</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Allocated Date & Time</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for recipient in recipients %}
+                    <tr>
+                    <td>{{ recipient.name }}</td>
+                    <td>{{ recipient.gender|title }}</td>
+                    <td class="room-number">{{ recipient.room_no }}</td>
+                    <td>{{ recipient.hostel_allotted }}</td>
+                    <td>
+                        <span class="status-badge {% if recipient.status == 'Checked In' %}status-checked-in{% elif recipient.status == 'Checked Out' %}status-checked-out{% else %}status-not-checked-in{% endif %}">
+                        {{ recipient.status }}
+                        </span>
+                    </td>
+                    <td>{{ recipient.email if recipient.email else 'N/A' }}</td>
+                    <td>{{ recipient.phone if recipient.phone else 'N/A' }}</td>
+                    <td class="datetime-display">{{ recipient.allocated_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            </div>
+
+    </div>
+{% else %}
+    <div class="scroll-wrapper">
+      <div class="no-recipients">
+        <p>No recipients found.<a href="{{ url_for('datasets') }}" style="color: #388BFF;"> Upload Dataset </a>to get started!</p>
+        
+      </div>
+    </div>
+{% endif %}
+
+
 
 
 {%endblock%}
 
 {% block scripts%}
 {{ super() }}
-
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const datasetSelect = document.getElementById('dataset_id');
+      datasetSelect.addEventListener('change', function () {
+        this.form.submit();
+      });
+    });
+  </script>
 {% endblock %}
 
 

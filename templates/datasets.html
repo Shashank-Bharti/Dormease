@@ -3,6 +3,30 @@
 
 {% block styles %}
 {{ super() }} <link rel="stylesheet" href="{{ url_for('static', filename='css/datasets.css') }}" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+
+
+<style>
+  .test-link {
+    display: inline-block;
+    margin: 20px 0;
+    padding: 10px 20px;
+    background: #388BFF;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+  }
+  
+  .test-link:hover {
+    background: #2070e0;
+    text-decoration: none;
+    color: white;
+  }
+</style>
 {%endblock%}
 
 {% block hidden%}
@@ -24,22 +48,43 @@ class = 'welcome'
  class="pointer-off"
 {% endblock %}
 {% block content %}
+
+
 <div class="data-placeholder">
-    {# this div will contain the dataset card that will load the different datasets if uploaded and selected #}
-    <span class="data-card">
-      
-    </span>
+  {%if datasets%}
+     {% for dataset in datasets %} 
+        {# this div will contain the dataset card that will load the different datasets if uploaded and selected #}
+        <span class="data-card">
+          <span class="inner-content">
+            <strong>DATASET</strong>
+            <h3 class='h-name'>{{dataset.hostel_name|upper}}</h3>
+            <p></p>
+            <a class='r-link' href="{{ url_for('recipients', dataset_id=dataset.id) }}"> View Recipients →</a>
+          </span>
+          <p class="p-footer">Uploaded On: {{ dataset.uploaded_at.strftime('%Y-%m-%d') }}</p>
+          <form method="POST" action="{{ url_for('delete_dataset', dataset_id=dataset.id) }}" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this dataset? This will remove all associated recipients and cannot be undone.')">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <button type="submit" title='⚠ Delete dataset' class='del-ds'><i class="fa-regular fa-trash-can"></i></button>
+          </form>
+        </span>
+     {% endfor %}
+  {% else %}
+            <div class="no-datasets">
+                <p>No datasets uploaded yet. Create your first dataset below!</p>
+            </div>
+  {% endif %}
 </div>
 <div class="upload-container">
+  <form class="form-container" method="POST" action="{{ url_for('upload_dataset') }}" enctype="multipart/form-data">
+    <input  type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 
   <span class="file-upload-section">
     <div class="dnd-cont">
       <label id='upld-label' for="file-upload">Upload C.S.V</label>
       <p>Drag and drop your file here or click to upload</p>
-    </div>
-    <h4 class="upldtag">Uploaded File</h4>
+    </div>    <h4 class="upldtag">Uploaded File</h4>
     <span class="upld-area">
-      <input class='area-content' type="file" id="file-upload" name="file-upload" accept=".csv" required />
+      <input class='area-content' type="file" id="file-upload" name="file" accept=".csv" required />
     </span>
   </span>
   <span class="customize-data">
@@ -53,18 +98,18 @@ class = 'welcome'
     </div>
     <div class="floors-div">
       <select id="floors" name="floors" class="select-floors" required>
-        <option value="select" disabled selected>No. of Floors</option>
-        <option id="ground" value="0">Ground</option>
-        <option id="first" value="1">1</option>
-        <option id="second" value="2">2</option>
-        <option id="third" value="3">3</option>
-        <option id="fourth" value="4">4</option>
-        <option id="fifth" value="5">5</option>
-        <option id="sixth" value="6">6</option>
-        <option id="seventh" value="7">7</option>
-        <option id="eigth" value="8">8</option>
-        <option id="ninth" value="9">9</option>
-        <option id="tenth" value="10">10</option>
+        <option value="select" disabled selected>Floors</option>
+        <option value="0">Ground Only (1 floor)</option>
+        <option value="1">Ground + 1st (2 floors)</option>
+        <option value="2">Ground + 1st + 2nd (3 floors)</option>
+        <option value="3">Ground to 3rd (4 floors)</option>
+        <option value="4">Ground to 4th (5 floors)</option>
+        <option value="5">Ground to 5th (6 floors)</option>
+        <option value="6">Ground to 6th (7 floors)</option>
+        <option value="7">Ground to 7th (8 floors)</option>
+        <option value="8">Ground to 8th (9 floors)</option>
+        <option value="9">Ground to 9th (10 floors)</option>
+        <option value="10">Ground to 10th (11 floors)</option>
       </select>
     </div>
     <div class="rooms-div">
@@ -82,17 +127,65 @@ class = 'welcome'
       <textarea class="extra-info-textarea" id="extra-info" name="extra-info" placeholder="Extra Information (Optional)"></textarea>
     </div>
     <div class="allocate-btn-div">
-      <button class="smart-allocate-btn" id="smart-allocate-btn" type="submit">Smart Allocate</button>
+      <button type='submit' class="smart-allocate-btn" id="smart-allocate-btn" ><svg xmlns="http://www.w3.org/2000/svg" width="45" height="42" viewBox="0 0 45 42" fill="none">
+  <g filter="url(#filter0_d_929_1596)">
+    <path d="M25.6475 12C25.6475 12 26.2638 17.3544 28.6055 19.6904C31.0174 22.0965 35.9825 22.6455 36 22.6475C36 22.6475 31.0493 23.815 28.6055 26.1973C26.5329 28.2179 25.6475 33 25.6475 33C25.6414 32.9743 24.4056 27.7561 22.3945 25.6055C19.7425 22.7694 15 22.6475 15 22.6475C15.0209 22.6439 19.7168 21.8471 22.3945 19.6904C25.0051 17.5879 25.6453 12.0189 25.6475 12ZM14.5771 9C14.5771 9 14.9004 11.8047 16.127 13.0283C17.3899 14.2881 19.9891 14.5759 20 14.5771C20 14.5771 17.4071 15.1887 16.127 16.4365C15.0413 17.4949 14.5771 20 14.5771 20C14.5734 19.984 13.9259 17.2529 12.873 16.127C11.4839 14.6414 9 14.5771 9 14.5771C9.01305 14.5749 11.471 14.1574 12.873 13.0283C14.24 11.9273 14.5758 9.01179 14.5771 9Z" fill="white"/>
+  </g>
+  <defs>
+    <filter id="filter0_d_929_1596" x="0.7" y="0.7" width="43.6" height="40.6" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+      <feOffset/>
+      <feGaussianBlur stdDeviation="4.15"/>
+      <feComposite in2="hardAlpha" operator="out"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.41 0"/>
+      <feBlend mode="plus-lighter" in2="BackgroundImageFix" result="effect1_dropShadow_929_1596"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_929_1596" result="shape"/>
+    </filter>
+  </defs>
+</svg>Smart Allocate</button>
+      </form>
     </div>
    </div>
     
   </span>
+  
 </div>
 
 {%endblock%}
 
 {% block scripts%}
 {{ super() }}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const fileInput = document.getElementById('file-upload');
+            const uploadArea = document.querySelector('.dnd-cont');
+
+            // Handle drag and drop
+            uploadArea.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                uploadArea.style.background = '#2c333a';
+            });
+            
+            uploadArea.addEventListener('dragleave', function(e) {
+                e.preventDefault();
+                uploadArea.style.background = '#3B444D';
+            });
+            
+            uploadArea.addEventListener('drop', function(e) {
+                e.preventDefault();
+                uploadArea.style.background = '#3B444D';
+                
+                const files = e.dataTransfer.files;
+                if (files.length > 0 && files[0].name.endsWith('.csv')) {
+                    fileInput.files = files;
+                    const fileName = files[0].name;
+                    
+                    uploadArea.style.background = '#3B444D';
+                }
+            });
+        });
+    </script>
 
 {% endblock %}
 

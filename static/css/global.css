@@ -160,6 +160,7 @@ svg.logo {
     font-weight: 500;
 }
 .content-text {
+    margin-top: -40px;
     color: #FFF;
     font-family: "Geist", sans-serif;
     font-size: 80px;
@@ -229,7 +230,7 @@ dot {
     font-weight: 200;
     line-height: 18px; /* 112.5% */
     letter-spacing: -0.16px;
-    margin-top: 40px;
+    margin-top: 25px;
     margin-left: 5px;
 }
 .abt-desc {
@@ -422,23 +423,25 @@ a.animated-underline:hover::after {
 
 /* Get Started Button */
 .get-started {
-    position: relative;
+    position: absolute;
+    margin-top: 20px;
     background-color: #38414a00;
     width: 135px;
     height: 40px;
     border: 3px solid #388BFF;
     border-radius: 50px;
-    top: -30px;
+    
 }
 
 .circle {
     position: absolute;
+    top: -0.09px;
+    left: 0px;
     width: 35px;
     height: 35px;
     background: #388BFF;
     border-radius: 50px;
-    left: 0;
-    top: -0px;
+    
     transition: 0.3s cubic-bezier(1,0,.8,1);
 }
 
@@ -460,8 +463,8 @@ a.animated-underline:hover::after {
     border-top: 3px solid #fff;
     border-right: 3px solid #fff;
     transform: rotate(45deg);
-    top: 11.2px;
-    left: 9px;
+    top: 12.5px;
+    left: 10px;
     transition: .3s;
 }
 
@@ -476,8 +479,8 @@ a.animated-underline:hover::after {
     height: 3px;
     background: #fff;
     transform: rotate(-45deg);
-    left: -3.5px;
-    top: 3.6px;
+    left: -4px;
+    top: 2.4px;
     opacity: 0;
     transition: .3s;
 }

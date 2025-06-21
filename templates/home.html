@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block title %}Home{% endblock %}
-{%block navlink%}<a class="sign-in" href="{{ url_for('login')}}">Sign In</a>{%endblock%}
+
 {% block content %}
   <div class="content-text">
     Swift <br />
@@ -10,15 +10,27 @@
       A unified platform to manage hostel accommodations, student verification
       and intelligent room allotment.
     </p>
-    <a href="{{url_for('register')}}"
-      ><button  class="get-started">
+    
+    <button  class="get-started">
         <span class="circle">
           <span class="arrow"></span>
         </span>
         <span class="btext">Get Started</span>
-      </button></a
-    >
+        
+      </button>
+ 
   </div>
     <img src="{{ url_for('static', filename='/images/ellipse-104.svg') }}" alt="element" class="ellipse" />
   
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  <script>
+   const getStartedButton = document.querySelector('.get-started');
+    getStartedButton.addEventListener('click', function() {
+      window.location.href = "{{ url_for('register') }}";
+    });
+
+  </script>
 {% endblock %}

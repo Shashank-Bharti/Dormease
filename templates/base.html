@@ -38,8 +38,7 @@
         <span></span>
         <span></span>
         <span></span>
-      </label>
-      <div class="nav-links">
+      </label>      <div class="nav-links">
         <a class="animated-underline" href="{{ url_for('about') }}">About</a>
         <a class="animated-underline" href="#">Support</a>
         <a
@@ -49,6 +48,13 @@
           rel="noopener noreferrer"
           >Docs</a
         >
+        {% if session.get('user_email') %}
+          <!-- User is logged in - show Dashboard link -->
+          <a class="animated-underline" href="{{ url_for('dashboard') }}">Dashboard🡭</a>
+        {% else %}
+          <!-- User is not logged in - show Sign In link -->
+          <a class="sign-in" href="{{ url_for('login') }}">Sign In</a>
+        {% endif %}
         {% block navlink %} {% endblock %}
       </div>
     </div>
@@ -187,4 +193,6 @@
     <div class="content-box">{% block content %} {% endblock %}</div>
     {%endblock%}
   </body>
+{% block scripts%}
+{% endblock %}
 </html>
