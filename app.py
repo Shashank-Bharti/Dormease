@@ -10,7 +10,7 @@ from datetime import datetime
 # Load environment variables from .env file
 load_dotenv()
 
-from models import db, User, Dataset, Recipient, otp_store
+from models import db, User, Dataset, Recipient, OTP, otp_store
 from email_service import configure_mail, send_email
 from auth import RegisterForm, OTPForm, LoginForm, login_required, send_login_otp, send_registration_otp, verify_otp
 from utils import add_no_cache_headers
@@ -109,19 +109,25 @@ def verify_signup():
         otp_input = otp_form.otp.data
         
         if verify_otp(email, otp_input):
-            name = otp_store[email]['name']
-            surname = otp_store[email]['surname']
+            # Get OTP data (name, surname) from database
+            from auth import get_otp_data
+            otp_data = get_otp_data(email, otp_input)
             
-            # Create new user if not exists
-            if not User.query.filter_by(email=email).first():
-                new_user = User(name=name, surname=surname, email=email)
-                db.session.add(new_user)
-                db.session.commit()
-            
-            # Clear OTP from store
-            otp_store.pop(email)
-            flash('Account created successfully! Please log in.')
-            return redirect(url_for('login'))
+            if otp_data:
+                name = otp_data['name']
+                surname = otp_data['surname']
+                
+                # Create new user if not exists
+                if not User.query.filter_by(email=email).first():
+                    new_user = User(name=name, surname=surname, email=email)
+                    db.session.add(new_user)
+                    db.session.commit()
+                
+                flash('Account created successfully! Please log in.')
+                return redirect(url_for('login'))
+            else:
+                flash('OTP data not found. Please try registration again.')
+                return redirect(url_for('register'))
         else:
             flash('Invalid OTP. Please try again.')
             return redirect(url_for('register'))
@@ -170,7 +176,6 @@ def verify_login():
         
         if verify_otp(email, otp_input):
             session['user_email'] = email
-            otp_store.pop(email)
             flash('Login successful!')
             return redirect(url_for('datasets'))
         else:

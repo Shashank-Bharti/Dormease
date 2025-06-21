@@ -54,12 +54,33 @@ class Recipient(db.Model):
     # Additional fields from CSV
     email = db.Column(db.String(150))
     phone = db.Column(db.String(20))
-    
-    # Foreign key to dataset
+      # Foreign key to dataset
     dataset_id = db.Column(db.Integer, db.ForeignKey('dataset.id'), nullable=False)
     
     def __repr__(self):
         return f'<Recipient {self.name} - Room {self.room_no}>'
 
-# OTP store (in-memory) 
+class OTP(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(150), nullable=False, index=True)
+    otp_code = db.Column(db.String(6), nullable=False)
+    name = db.Column(db.String(100))  # For registration OTPs
+    surname = db.Column(db.String(100))  # For registration OTPs
+    otp_type = db.Column(db.String(20), nullable=False)  # 'registration' or 'login'
+    created_at = db.Column(db.DateTime, default=datetime.now)
+    expires_at = db.Column(db.DateTime, nullable=False)
+    is_used = db.Column(db.Boolean, default=False)
+    
+    def __repr__(self):
+        return f'<OTP {self.email} - {self.otp_type}>'
+    
+    def is_expired(self):
+        return datetime.now() > self.expires_at
+    
+    def is_valid(self, otp_input):
+        return (not self.is_used and 
+                not self.is_expired() and 
+                self.otp_code == otp_input)
+
+# OTP store (in-memory) - DEPRECATED, use OTP model instead
 otp_store = {}

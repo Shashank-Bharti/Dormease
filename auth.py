@@ -4,7 +4,8 @@ from wtforms import StringField, SubmitField, HiddenField
 from wtforms.validators import DataRequired, Email
 from functools import wraps
 import random
-from models import User, otp_store
+from datetime import datetime, timedelta
+from models import User, OTP, otp_store, db
 from email_service import send_email
 
 # Forms for authentication
@@ -48,6 +49,17 @@ def generate_otp():
     """Generate a random 5-digit OTP."""
     return str(random.randint(10000, 99999))
 
+def cleanup_expired_otps():
+    """Remove expired OTPs from database."""
+    try:
+        expired_otps = OTP.query.filter(OTP.expires_at < datetime.now()).all()
+        for otp in expired_otps:
+            db.session.delete(otp)
+        db.session.commit()
+    except Exception as e:
+        db.session.rollback()
+        print(f"Error cleaning up expired OTPs: {e}")
+
 def send_login_otp(email):
     """
     Generate and send OTP for login.
@@ -62,9 +74,33 @@ def send_login_otp(email):
     if not user:
         return False
     
-    otp = generate_otp()
-    otp_store[email] = {'otp': otp}
-    return send_email(email, otp, user.name)
+    try:
+        # Clean up any existing OTPs for this email
+        existing_otps = OTP.query.filter_by(email=email, otp_type='login').all()
+        for otp in existing_otps:
+            db.session.delete(otp)
+        
+        # Generate new OTP
+        otp_code = generate_otp()
+        expires_at = datetime.now() + timedelta(minutes=10)  # OTP expires in 10 minutes
+        
+        # Store OTP in database
+        new_otp = OTP(
+            email=email,
+            otp_code=otp_code,
+            otp_type='login',
+            expires_at=expires_at
+        )
+        db.session.add(new_otp)
+        db.session.commit()
+        
+        # Send email
+        return send_email(email, otp_code, user.name)
+    
+    except Exception as e:
+        db.session.rollback()
+        print(f"Error sending login OTP: {e}")
+        return False
 
 def send_registration_otp(email, name, surname):
     """
@@ -78,11 +114,37 @@ def send_registration_otp(email, name, surname):
     Returns:
         str: Generated OTP if successful, None otherwise
     """
-    otp = generate_otp()
-    otp_store[email] = {'otp': otp, 'name': name, 'surname': surname}
-    if send_email(email, otp, name):
-        return otp
-    return None
+    try:
+        # Clean up any existing OTPs for this email
+        existing_otps = OTP.query.filter_by(email=email, otp_type='registration').all()
+        for otp in existing_otps:
+            db.session.delete(otp)
+        
+        # Generate new OTP
+        otp_code = generate_otp()
+        expires_at = datetime.now() + timedelta(minutes=10)  # OTP expires in 10 minutes
+        
+        # Store OTP in database
+        new_otp = OTP(
+            email=email,
+            otp_code=otp_code,
+            name=name,
+            surname=surname,
+            otp_type='registration',
+            expires_at=expires_at
+        )
+        db.session.add(new_otp)
+        db.session.commit()
+        
+        # Send email
+        if send_email(email, otp_code, name):
+            return otp_code
+        return None
+    
+    except Exception as e:
+        db.session.rollback()
+        print(f"Error sending registration OTP: {e}")
+        return None
 
 def verify_otp(email, otp_input):
     """
@@ -95,6 +157,55 @@ def verify_otp(email, otp_input):
     Returns:
         bool: True if OTP is valid, False otherwise
     """
-    if email in otp_store and otp_store[email]['otp'] == otp_input:
-        return True
-    return False
+    try:
+        # Clean up expired OTPs first
+        cleanup_expired_otps()
+        
+        # Find the most recent valid OTP for this email
+        otp_record = OTP.query.filter_by(
+            email=email, 
+            otp_code=otp_input,
+            is_used=False
+        ).filter(OTP.expires_at > datetime.now()).first()
+        
+        if otp_record:
+            # Mark OTP as used
+            otp_record.is_used = True
+            db.session.commit()
+            return True
+        return False
+    
+    except Exception as e:
+        db.session.rollback()
+        print(f"Error verifying OTP: {e}")
+        return False
+
+def get_otp_data(email, otp_input):
+    """
+    Get OTP data for registration (name, surname).
+    
+    Args:
+        email (str): User's email address
+        otp_input (str): OTP provided by the user
+        
+    Returns:
+        dict: OTP data with name and surname, or None if not found
+    """
+    try:
+        otp_record = OTP.query.filter_by(
+            email=email, 
+            otp_code=otp_input,
+            otp_type='registration',
+            is_used=True  # Should be marked as used after verification
+        ).first()
+        
+        if otp_record:
+            return {
+                'name': otp_record.name,
+                'surname': otp_record.surname
+            }
+        return None
+    
+    except Exception as e:
+        print(f"Error getting OTP data: {e}")
+        return None
