@@ -64,7 +64,7 @@ body::after {
 /* Art Section */
 .art {
     position: relative; 
-    width: 105%;
+    width: 100%;
     display: flex;
     justify-content: center;
     margin-right: 55px;
@@ -99,7 +99,7 @@ body::after {
 /* Logo Container */
 .logo-container {
     position: relative; /* Changed from absolute */
-    width: 77%;
+    width: 75%;
     display: flex;
     justify-content: center;
 
