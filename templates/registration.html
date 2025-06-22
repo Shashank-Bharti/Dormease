@@ -1,15 +1,29 @@
 {% extends "base.html" %} {% block title %}Registration{% endblock %} {%block
-styles%} {{ super() }}
+styles%} 
+
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='/css/slideleftanim.css') }}"
+/>
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='/css/global.css') }}"
+/>
 <link
   rel="stylesheet"
   href="{{ url_for('static', filename='/css/registration.css') }}"
 />
-<link
-  rel="stylesheet"
-  href="{{ url_for('static', filename='/css/form-fixes.css') }}"
-/>
 <script src="{{ url_for('static', filename='js/otp.js') }}" defer></script>
 {% endblock %}
+        {% block sbutton%}
+        {% if session.get('user_email') %}
+          <!-- User is logged in - show Dashboard link -->
+          <a class="animated-underline" href="{{ url_for('dashboard') }}">Dashboard🡭</a>
+        {% else %}
+          <!-- User is not logged in - show Sign In link -->
+          <a class="sign-in" href="{{ url_for('login') }}">Sign In</a>
+        {% endif %}
+        {% endblock %}
 {% block content %}
 
 <div class="content-text">

@@ -1,17 +1,17 @@
 /* Page-specific styles only */
 
 @import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
-
+/* 
 .art {
   position: relative;
   width: 105%;
   display: flex;
   justify-content: center;
   margin-right: 55px;
-  margin-bottom: -15px; /* Space between art and logo */
-}
-.logo-container {
-  position: relative; /* Changed from absolute */
+  margin-bottom: -15px; 
+} */
+/* .logo-container {
+  position: relative; 
   width: 80%;
   display: flex;
   justify-content: center;
@@ -21,13 +21,13 @@ svg.logo {
   width: 100%;
   height: auto;
   max-width: 100%;
-}
-.art img {
+} */
+/* .art img {
   width: 80%;
   height: auto;
   max-width: 100%;
   max-height: 100%;
-}
+} */
 .content-box {
   
   width: 42%;
@@ -193,7 +193,7 @@ input:-webkit-autofill:active {
   transition: 0.3s ease all;
 }
 #surname{
-  left:-22px
+  left:-24px
 
 }
 .lname {
@@ -379,7 +379,7 @@ input:-webkit-autofill:active {
 
 .sn-btn {
   position: relative;
-  width: 406px;
+  width: 409px;
   height: 46px;
   border: 2px;
   background: #388bff;
@@ -435,11 +435,12 @@ input:-webkit-autofill:active {
   font-size: 16px;
   font-style: normal;
   font-weight: 300;
-  line-height: 18px; /* 112.5% */
+  line-height: 18px; 
   letter-spacing: -0.16px;
   padding-top: 20px;
   margin-left: 5px;
 }
+
 
 .navbar {
   display: flex;
@@ -574,14 +575,14 @@ a.animated-underline:hover::after {
     font-weight: 500;
 }
 .right-content {
-  position: absolute;
-  right: 60px;
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
+    position: absolute;
+    right: 2.5vw;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
 }
 
 /* Hamburger menu styles */
@@ -645,9 +646,9 @@ a.animated-underline:hover::after {
     display: flex;
     flex-direction: column;
   }
-  .art {
+  /* .art {
     margin-bottom: -1px;
-  }
+  } */
   .logo-container {
     left: -15px;
   }

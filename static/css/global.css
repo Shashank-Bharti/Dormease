@@ -72,26 +72,25 @@ body::after {
 }
 
 .art .art-1 {
-    width: 70%;
+    width: 77%;
     height: auto;
     max-width: 100%;
     max-height: 100%;
-    opacity: 0;
-    animation: fadeInRight 0.6s ease-in-out 0.2s forwards;
+    margin-top: 4vh;
+
 }
 
 .art .art-2 {
-    padding-top:30px ;
-    width: 72%;
+    margin-top: 6vh;
+    width: 73%;
     height: auto;
     z-index: 1;
     max-width: 100%;
     max-height: 100%;
-    opacity: 0;
-    animation: fadeInRight 0.6s ease-in-out 0.2s forwards;
+
 }
 .art-2{
-    margin-right: -65px;
+    margin-right: -70px;
     
 }
 
@@ -100,11 +99,10 @@ body::after {
 /* Logo Container */
 .logo-container {
     position: relative; /* Changed from absolute */
-    width: 70%;
+    width: 77%;
     display: flex;
     justify-content: center;
-    opacity: 0;
-    animation: fadeInRight 0.6s ease-in-out 0.2s forwards;
+
 }
 
 svg.logo {
@@ -270,7 +268,7 @@ dot {
     font-weight: 200;
     line-height: 18px; /* 112.5% */
     letter-spacing: -0.16px;
-    padding: 20px 0px 0px 0px ;
+    padding: 30px 0px 0px 0px ;
     margin-left: 5px;
 }
 .abt-desc {
@@ -397,7 +395,7 @@ a.animated-underline:hover::after {
 /* Right Content */
 .right-content {
     position: absolute;
-    right: 60px;
+    right: 2.5vw;
     width: 50%;
     display: flex;
     flex-direction: column;

@@ -19,6 +19,10 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='/css/slideleftanim.css') }}"
     /> 
+     <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='/css/sliderightanim.css') }}"
+    /> 
     {% endblock %}
     <script src="{{ url_for('static', filename='js/flash.js') }}" defer></script>  </head>
   <body>
@@ -67,7 +71,7 @@
           target="_blank"
           rel="noopener noreferrer"
           >Docs</a
-        >
+        >{% block sbutton%}
         {% if session.get('user_email') %}
           <!-- User is logged in - show Dashboard link -->
           <a class="animated-underline" href="{{ url_for('dashboard') }}">Dashboard🡭</a>
@@ -75,6 +79,7 @@
           <!-- User is not logged in - show Sign In link -->
           <a class="sign-in" href="{{ url_for('login') }}">Sign In</a>
         {% endif %}
+        {% endblock %}
         {% block navlink %} {% endblock %}
       </div>
     </div>
