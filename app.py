@@ -1011,4 +1011,6 @@ def page_not_found(e):
     return render_template("notfound.html"), 404
 
 if __name__ == '__main__':
-    app.run(debug=False, port=3000)
+    # Enable debug mode for local development to see detailed errors
+    debug_mode = os.getenv('FLASK_DEBUG', 'False').lower() == 'true'
+    app.run(debug=True, port=3000)  # Temporarily force debug=True for troubleshooting
