@@ -56,7 +56,6 @@ svg.logo {
 
 /* Added content text styling */
 .content-text {
-  
   color: #fff;
   font-family: "Geist", sans-serif;
   font-size: 4rem;
@@ -64,12 +63,13 @@ svg.logo {
   font-weight: 900;
   line-height: 43.939px; 
   letter-spacing: -2.296px;
-  padding-left: 3.5vw;
+  
   position: relative;
   z-index: 1;
-  min-width: 40vw;
-  max-width: 80%;
-  height: auto;
+ 
+}
+.w-br{
+
 }
 
 
