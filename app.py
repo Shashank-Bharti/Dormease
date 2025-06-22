@@ -38,7 +38,7 @@ os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
 db.init_app(app)
 
-# Configure CSRF protection
+# Configure CSRF (cross site request forgery) - wtforms protection
 csrf = CSRFProtect(app)
 
 # Configure email service
@@ -444,15 +444,15 @@ def toggle_checkin(recipient_id):
         flash(f'Error updating status: {str(e)}')
         return redirect(url_for('recipients'))
 
-@app.route('/test-verification')
-@login_required
-def test_verification():
-    """Render the test verification page with QR scanner."""
-    user = User.query.filter_by(email=session['user_email']).first()
-    # Get user's datasets for the dropdown
-    datasets = user.datasets
-    response = render_template('test-verification.html', user=user, datasets=datasets)
-    return add_no_cache_headers(response)
+# @app.route('/test-verification')
+# @login_required
+# def test_verification():
+#     """Render the test verification page with QR scanner."""
+#     user = User.query.filter_by(email=session['user_email']).first()
+#     # Get user's datasets for the dropdown
+#     datasets = user.datasets
+#     response = render_template('test-verification.html', user=user, datasets=datasets)
+#     return add_no_cache_headers(response)
 
 @app.route('/verify_qr_scan', methods=['POST'])
 @login_required

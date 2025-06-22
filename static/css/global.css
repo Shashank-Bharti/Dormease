@@ -4,6 +4,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
+/* Keyframe Animations */
+
+@keyframes fadeInRight {
+    0% {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -49,20 +71,28 @@ body::after {
     margin-bottom: -15px; /* Space between art and logo */
 }
 
-.art img {
-    width: 80%;
+.art .art-1 {
+    width: 70%;
     height: auto;
     max-width: 100%;
     max-height: 100%;
+    opacity: 0;
+    animation: fadeInRight 0.6s ease-in-out 0.2s forwards;
 }
-.art-2 {
-    position: relative; 
-    width: 80%;
-    display: flex;
-    justify-content: center;
-    right: -20px;
+
+.art .art-2 {
+    padding-top:30px ;
+    width: 72%;
+    height: auto;
     z-index: 1;
-    margin-bottom: -20px; /* Space between art and logo */
+    max-width: 100%;
+    max-height: 100%;
+    opacity: 0;
+    animation: fadeInRight 0.6s ease-in-out 0.2s forwards;
+}
+.art-2{
+    margin-right: -65px;
+    
 }
 
 
@@ -70,9 +100,11 @@ body::after {
 /* Logo Container */
 .logo-container {
     position: relative; /* Changed from absolute */
-    width: 80%;
+    width: 70%;
     display: flex;
     justify-content: center;
+    opacity: 0;
+    animation: fadeInRight 0.6s ease-in-out 0.2s forwards;
 }
 
 svg.logo {
@@ -95,6 +127,7 @@ svg.logo {
     padding: 20px;
     box-sizing: border-box;
     position: relative; /* Added for proper positioning of ellipse */
+
 }
 
 /* Ellipse positioning */
@@ -106,6 +139,7 @@ svg.logo {
     height: auto;
     pointer-events: none;
     z-index: 0;
+    
 }
 
 /* Content Text styling */
@@ -160,32 +194,37 @@ svg.logo {
     font-weight: 500;
 }
 .content-text {
-    margin-top: -40px;
+    display: grid;
     color: #FFF;
     font-family: "Geist", sans-serif;
-    font-size: 80px;
+    font-size: 5em;
     font-style: normal;
     font-weight: 900;
-    line-height: 73px; /* 80.179% */
+    line-height: 68px; /* 80.179% */
     letter-spacing: -0.8px;
     position: relative;
     z-index: 1;
-    margin-left: 125px;
+    margin: 0 auto;
+    padding-left: 2.5vw;
+    word-wrap: normal;
+    
 }
 .content-abt-text {
     display: flex;
     flex-direction: column;
     position: relative;
-    top:-2em;
+    margin: 0 auto;
+    top: -2vh;
+    left: 1.2vw;
     color: #FFF;
     font-family: "Geist", sans-serif;
-    font-size: 80px;
+    font-size: 5rem;
     font-style: normal;
     font-weight: 900;
     line-height: 90px; /* 80.179% */
     letter-spacing: -0.8px;
     z-index: 1;
-    margin-left: 125px;
+  
 }
 .error-container {
     position: absolute;
@@ -220,8 +259,9 @@ dot {
 
 /* Description Text */
 .desc {
+    
     width: 430px;
-    height: 36px;
+    height: 55px;
     flex-shrink: 0;
     color: #FFF;
     font-family: "Geist", sans-serif;
@@ -230,13 +270,13 @@ dot {
     font-weight: 200;
     line-height: 18px; /* 112.5% */
     letter-spacing: -0.16px;
-    margin-top: 25px;
+    padding: 20px 0px 0px 0px ;
     margin-left: 5px;
 }
 .abt-desc {
     width: 26vw;
     word-wrap: break-word;
-    height: 2vh;
+ 
     flex-shrink: 0;
     color: #FFF;
     font-family: "Geist", sans-serif;
@@ -245,8 +285,8 @@ dot {
     font-weight: 400;
     line-height: 22px; /* 112.5% */
     letter-spacing: -0.16px;
-    margin-top: 40px;
-    margin-left: 5px;
+    margin-top: 35px;
+    
 }
 
 /* Navigation Bar */
@@ -422,9 +462,12 @@ a.animated-underline:hover::after {
 }
 
 /* Get Started Button */
-.get-started {
-    position: absolute;
+.content-text button{
     margin-top: 20px;
+}
+.get-started {
+    position: relative;
+    z-index: 6;
     background-color: #38414a00;
     width: 135px;
     height: 40px;
@@ -441,7 +484,7 @@ a.animated-underline:hover::after {
     height: 35px;
     background: #388BFF;
     border-radius: 50px;
-    
+    z-index: 5;
     transition: 0.3s cubic-bezier(1,0,.8,1);
 }
 
@@ -493,15 +536,14 @@ a.animated-underline:hover::after {
     color: #FFF;
     position: relative;
     text-align: center;
-    font-family: Montserrat;
-    font-size: 11px;
+    font-family: "Montserrat", sans-serif;
+    font-size: 0.8rem;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
-    letter-spacing: -0.11px;
-    text-transform: uppercase;
+    letter-spacing: -0.05px;
     padding: 0px 0px 0px 26px;
-    top: -1px;
+    z-index: 7;
 }
 /* 
  Form Input Styles 
@@ -844,7 +886,93 @@ Dashboard Options
     border-radius: 20px;
     left: 13px;
     cursor: pointer;
-} */
+}
+
+/* Mobile Overlay for Desktop-Only Message */
+.mobile-overlay {
+    display: none; /* Hidden by default on desktop */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+}
+
+.mobile-overlay-content {
+    text-align: center;
+    color: white;
+    padding: 40px 30px;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.mobile-logo {
+    width: 150px;
+    height: auto;
+    margin-bottom: 30px;
+    filter: brightness(0) invert(1); /* Make logo white */
+}
+
+.mobile-overlay-content h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #fff;
+    font-family: "Montserrat", sans-serif;
+}
+
+.mobile-overlay-content p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    color: rgba(255, 255, 255, 0.9);
+    font-family: "Geist", sans-serif;
+}
+
+.mobile-overlay-content p:last-child {
+    margin-bottom: 0;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Show overlay only on mobile devices */
+@media (max-width: 1024px) {
+    .mobile-overlay {
+        display: flex;
+    }
+    
+    /* Hide all other content on mobile */
+    .navbar,
+    .right-content,
+    .content-box,
+    .flash-messages {
+        display: none;
+    }
+}
+
+/* Extra small mobile devices */
+@media (max-width: 480px) {
+    .mobile-overlay-content {
+        padding: 30px 20px;
+    }
+    
+    .mobile-logo {
+        width: 120px;
+        margin-bottom: 25px;
+    }
+    
+    .mobile-overlay-content h2 {
+        font-size: 2rem;
+    }
+    
+    .mobile-overlay-content p {
+        font-size: 1rem;
+    }
+}
 
 /* Responsive Design */
 @media (max-width: 768px) {

@@ -225,6 +225,14 @@
   color: #ffffff;
   text-align: center;
 }
+.no-data{
+    display: flex;
+  padding: 80px;
+  
+  justify-content: center;
+  color: #ffffff;
+  text-align: center;
+}
 .donut-chart {
   display: flex;
   flex-direction: column;
@@ -488,6 +496,7 @@
   box-sizing: border-box;
   top: 0;
   left: 0;
+  
 
   /* Added for proper positioning of ellipse */
 }

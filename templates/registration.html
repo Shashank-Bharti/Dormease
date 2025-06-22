@@ -13,14 +13,14 @@ styles%} {{ super() }}
 {% block content %}
 
 <div class="content-text">
-  Create<br /><blue>new</blue> account<dot>.</dot> <br />
+  Create <span class="w-br"> <blue3>new</blue3> account<dot>.</dot></span>
   <p class="desc">
     Have an account ?<a class="desc" href="{{ url_for('login')}}"
       ><bluelink>Sign in </bluelink></a
     >
   </p>
   <div class="input-fields">
-    <div class="name-input">      <form method="post">
+    <div class="name-input">      <form  method="post">
       {{ form.hidden_tag() }}
 
       <input type="name" class="name" name="name" id="name" placeholder=" " value="{{ request.form.get('name', '') }}" required/>
@@ -76,16 +76,19 @@ styles%} {{ super() }}
           d="M0.206227 1.90471C0.0730992 2.24402 0 2.61347 0 3V10C0 11.6569 1.34315 13 3 13H17C18.6569 13 20 11.6569 20 10V3C20 2.61348 19.9269 2.24404 19.7938 1.90473C19.78 1.91471 19.7656 1.92409 19.7505 1.9328L10.2505 7.4328C10.0956 7.52251 9.90447 7.52251 9.7495 7.4328L0.249504 1.9328C0.234448 1.92408 0.220018 1.9147 0.206227 1.90471ZM0.719454 1.05078C0.729927 1.05591 0.740295 1.06144 0.75054 1.06737L10 6.42233L19.2495 1.06737C19.2597 1.06144 19.2701 1.05593 19.2806 1.05081C18.7303 0.407642 17.9128 0 17 0H3C2.08724 0 1.26969 0.407633 0.719454 1.05078Z"
           fill="white"
           style="mix-blend-mode: soft-light"
-          />
-        </svg>
-        <button type="submit"  class="otp-btn"><span class="otp-txt">Get OTP</span></button>
+          />        </svg>
       </form>
-    </div>    <div class="pass" id="otpForm">
+    </div>
+
+    <div class="pass" id="otpForm">
       <form method="post" action="{{ url_for('verify_signup') }}">
       {{ otp_form.hidden_tag() if otp_form else "" }}
       {{ otp_form.email() if otp_form else "" }}
-      <input type="text" name="otp" class="em-password" id="otp" placeholder=" " required/>
-      <label for="text" class="pass-label">Enter OTP</label>
+      <div class="otp-input-container">
+        <input type="text" name="otp" class="em-password" id="otp" placeholder=" " required/>
+        <label for="text" class="pass-label">Enter OTP</label>
+        <button type="button" class="otp-btn-inline" id="getOtpBtn"><span class="otp-txt">Get OTP</span></button>
+      </div>
       <div class="s-btn"><button type="submit" class="sn-btn">Sign Up</button></div>
       </form>
     </div>

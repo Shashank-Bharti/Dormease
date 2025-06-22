@@ -13,10 +13,30 @@
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='/css/global.css') }}"
-    />    {% block styles %} {% endblock %}
-    <script src="{{ url_for('static', filename='js/flash.js') }}" defer></script>
-  </head>
+    />  
+    {% block styles %}  
+     <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='/css/slideleftanim.css') }}"
+    /> 
+    {% endblock %}
+    <script src="{{ url_for('static', filename='js/flash.js') }}" defer></script>  </head>
   <body>
+    <!-- Mobile-only overlay -->
+    <div class="mobile-overlay">
+      <div class="mobile-overlay-content">
+        <img 
+          src="{{ url_for('static', filename='/images/Dormease_logo.svg') }}" 
+          alt="Dormease Logo" 
+          class="mobile-logo"
+        />
+        <h2>Sorry!</h2>
+        <p>Dormease is only available for desktops right now.</p>
+        <p>Please visit us on a desktop or laptop computer for the best experience.</p>
+        <code>~ Capstone Group 14</code>
+      </div>
+    </div>
+
     {% with messages = get_flashed_messages() %}
       {% if messages %}
         <div class="flash-messages">
@@ -61,7 +81,7 @@
     {% block background%}
     <div class="right-content">
       <div class="art">
-        {% block art %}<img
+        {% block art %}<img class= 'art-1'
           src="{{ url_for('static', filename='/images/mp_art 1.svg') }}"
           alt="Dormease art"
         />{% endblock %}

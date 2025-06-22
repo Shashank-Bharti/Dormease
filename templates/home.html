@@ -1,11 +1,16 @@
 {% extends "base.html" %}
 {% block title %}Home{% endblock %}
 
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='/css/slideleftanime.css') }}">
+{% endblock %}
+
 {% block content %}
   <div class="content-text">
-    Swift <br />
-    <blue>Smart</blue> <br />
-    Seamless <br />
+    Swift 
+    <blue>Smart</blue> 
+    Seamless 
     <p class="desc">
       A unified platform to manage hostel accommodations, student verification
       and intelligent room allotment.

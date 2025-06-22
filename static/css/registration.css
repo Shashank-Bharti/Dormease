@@ -29,7 +29,7 @@ svg.logo {
   max-height: 100%;
 }
 .content-box {
-  position: absolute;
+  
   width: 42%;
   height: 100vh;
   background: rgba(217, 217, 217, 0.05); /* Reduced opacity */
@@ -58,17 +58,37 @@ svg.logo {
 .content-text {
   color: #fff;
   font-family: "Geist", sans-serif;
-  font-size: 63px;
+  font-size: 4rem;
   font-style: normal;
   font-weight: 900;
-  line-height: 43.939px; /* 76.562% */
+  line-height: 43.939px; 
   letter-spacing: -2.296px;
-
+  
   position: relative;
   z-index: 1;
-  margin-left: 125px;
+ 
 }
-blue {
+.w-br{
+
+}
+
+
+
+/*     display: grid;
+    color: #FFF;
+    font-family: "Geist", sans-serif;
+    font-size: 5rem;
+    font-style: normal;
+    font-weight: 900;
+    line-height: 73px; 
+    letter-spacing: -0.8px;
+    position: relative;
+    z-index: 1;
+    margin: 0 auto;
+    padding-left: 4vw; */
+
+
+blue3 {
   color: #388bff;
 }
 bluelink {
@@ -128,15 +148,15 @@ input:-webkit-autofill:active {
   border-radius: 18px;
   background: #454f59;
   padding-left: 20px;
-
+  padding-right: 13rem; /* Add space for the button */
   color: #ffffff;
   outline: none;
   transition: all 0.3s ease;
 }
 .name:focus + .fname,
 .name:not(:placeholder-shown) + .fname {
-  left: 21px;
-  margin-top: 5%;
+  margin-left: 42x;
+  margin-top: 6%;
   transform: translateY(-50%);
   font-family: "Geist", sans-serif;
   font-size: 12px;
@@ -147,8 +167,8 @@ input:-webkit-autofill:active {
 }
 .name:focus + .lname,
 .name:not(:placeholder-shown) + .lname {
-  margin-left: 2px;
-  margin-top: 5%;
+  margin-left: 6px;
+  margin-top: 6%;
   transform: translateY(-50%);
   font-family: "Geist", sans-serif;
   font-size: 12px;
@@ -229,10 +249,18 @@ input:-webkit-autofill:active {
   background: #4d5761;
   box-shadow: 0px 0px 13.2px -2px rgba(56, 139, 255, 0.73);
 }
+/* Container for OTP input and button */
+.otp-input-container {
+  position: relative;
+  display: inline-block;
+  width: 25.5rem;
+}
+
+/* Original OTP button (hidden/unused now) */
 .otp-btn {
   position: absolute;
   border: none;
-  margin-top: 4.95rem;
+  top: 21.5vh;
   left: 13.4rem;
   width: 12.1rem;
   height: 3.5rem;
@@ -240,6 +268,36 @@ input:-webkit-autofill:active {
   border-radius: 0 18px 18px 0;
   background: #388bff;
   z-index: 2;
+  display: none; /* Hide original button */
+}
+
+/* New inline OTP button inside input */
+.otp-btn-inline {
+  position: absolute;
+  right: 0;
+  top: 1.5vh;
+  height: 3.45rem;
+  width: 12.1rem;
+  border: none;
+  border-radius: 0 18px 18px 0;
+  background: #388bff;
+  cursor: pointer;
+  z-index: 2;
+  transition: background 0.3s ease;
+  color: #fff;
+  text-align: center;
+  font-family: "Geist", sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.otp-btn-inline:hover {
+  background: #579cfb;
+}
+.content-text button{
+  margin-top: 0;
 }
 .otp-txt {
   color: #fff;
@@ -263,9 +321,9 @@ input:-webkit-autofill:active {
   opacity: 0.3;
 }
 .icon-right {
-  position: relative;
-  margin-top: 5%;
-  right: 5rem;
+  position: absolute;
+  margin-top: 7%;
+  right: 4.6rem;
   transform: scale(1.1);
   opacity: 0.3;
 }
@@ -368,8 +426,9 @@ input:-webkit-autofill:active {
   left: 150%;
 }
 .desc {
+  position: relative;
   width: 450px;
-  height: 36px;
+  height: 50px;
   flex-shrink: 0;
   color: #fff;
   font-family: "Geist", sans-serif;
@@ -378,7 +437,7 @@ input:-webkit-autofill:active {
   font-weight: 300;
   line-height: 18px; /* 112.5% */
   letter-spacing: -0.16px;
-  margin-top: 30px;
+  padding-top: 20px;
   margin-left: 5px;
 }
 
@@ -614,6 +673,22 @@ a.animated-underline:hover::after {
     position: relative;
     top: 400px;
     left: 0;
+  }
+
+  /* Responsive styles for OTP input and button */
+  .otp-input-container {
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .em-password {
+    width: 100%;
+    padding-right: 120px; /* Smaller button on mobile */
+  }
+
+  .otp-btn-inline {
+    width: 110px; /* Smaller button on mobile */
+    font-size: 14px;
   }
 
   /* Hamburger menu responsive styles */

@@ -63,7 +63,7 @@ svg.logo {
 .content-text {
   color: #fff;
   font-family: "Geist", sans-serif;
-  font-size: 90px;
+  font-size: 5rem;
   font-style: normal;
   font-weight: 900;
   line-height: 73px;
@@ -72,7 +72,7 @@ svg.logo {
 
   position: relative;
   z-index: 1;
-  margin-left: 125px;
+  
 }
 
 blue {
@@ -165,7 +165,7 @@ input:-webkit-autofill:active {
 .email-label {
   position: absolute;
   left: 20px;
-  margin-top: 14%;
+  margin-top: 12.5%;
   transform: translateY(-50%);
   color: #8c9bab;
   font-family: "Geist", sans-serif;
@@ -227,18 +227,61 @@ input:-webkit-autofill:active {
   opacity: 0.3;
 }
 
-.otp-btn {
-  position: absolute;
-  border: none;
-  top: 5.4rem;
- left: 13.4rem;
-  width: 12.1rem;
-  height: 3.5rem;
+/* Container for OTP input and button */
+.otp-input-container {
+  position: relative;
+  display: inline-block;
+  width: 25.5rem;
+}
 
+.otp-input-container button{
+  margin-top: 30px;
+}
+
+/* New inline OTP button inside input */
+.otp-btn-inline {
+  position: absolute;
+  right: 0;
+  top: 0.2vh;
+  margin-top: vh;
+  height: 3.48rem;
+  width: 12.1rem;
+  border: none;
   border-radius: 0 18px 18px 0;
   background: #388bff;
+  cursor: pointer;
   z-index: 2;
+  transition: background 0.3s ease;
+  color: #fff;
+  text-align: center;
+  font-family: "Geist", sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 }
+
+.otp-btn-inline:hover {
+  background: #579cfb;
+}
+
+.otp-btn-inline:hover {
+  background: #579cfb;
+}
+
+.otp-btn-inline .otp-txt {
+  color: #fff;
+  font-family: "Geist", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Update password input to accommodate button */
+.em-password {
+  padding-right: 100px !important;
+}
+
+
 
 .otp-txt {
   color: #fff;
@@ -311,7 +354,7 @@ p .desc{
 
 .desc {
   width: 450px;
-  height: 36px;
+  height: 50px;
   flex-shrink: 0;
   color: #fff;
   font-family: "Geist", sans-serif;
@@ -321,7 +364,7 @@ p .desc{
   line-height: 18px;
   /* 112.5% */
   letter-spacing: -0.16px;
-  margin-top: 30px;
+  margin-bottom: 5px;
   margin-left: 5px;
 }
 
@@ -613,8 +656,22 @@ a.animated-underline:hover::after {
   .navbar {
     padding: 30px 10px;
   }
-
   .nav-logo {
     margin-left: 0;
+  }
+
+  /* Responsive styles for inline OTP button */
+  .otp-input-container {
+    width: 100%;
+  }
+
+  .otp-btn-inline {
+    padding: 0 15px;
+    font-size: 12px;
+    min-width: 70px;
+  }
+
+  .em-password {
+    padding-right: 85px !important;
   }
 }
