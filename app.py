@@ -6,6 +6,7 @@ import os
 from werkzeug.utils import secure_filename
 from dotenv import load_dotenv
 from datetime import datetime
+from sqlalchemy import text
 
 # Load environment variables from .env file
 load_dotenv()
@@ -18,6 +19,9 @@ from utils import add_no_cache_headers
 # Initialize Flask application
 app = Flask(__name__)
 app.secret_key = os.getenv('FLASK_SECRET_KEY', 'your_secret_key_here_change_in_production')
+
+# Configure Flask debug mode from environment
+app.config['DEBUG'] = os.getenv('FLASK_DEBUG', 'False').lower() == 'true'
 
 # Configure session security
 
@@ -978,8 +982,9 @@ def dashboard_analytics():
 def health_check():
     """Health check endpoint for Render and monitoring services."""
     try:
-        # Test database connection
-        db.session.execute('SELECT 1')
+        # Test database connection using proper SQLAlchemy syntax
+        db.session.execute(text('SELECT 1'))
+        db.session.commit()
         return jsonify({
             'status': 'healthy',
             'service': 'dormease',
@@ -998,7 +1003,7 @@ def health_check():
 @app.route('/health')
 def simple_health():
     """Simple health check endpoint."""
-    return "OK", 200
+    return "System is Healthy, Flask App Operational", 200
 
 @app.errorhandler(404)
 def page_not_found(e):
@@ -1006,4 +1011,4 @@ def page_not_found(e):
     return render_template("notfound.html"), 404
 
 if __name__ == '__main__':
-    app.run(debug=True, port=3000)
+    app.run(debug=False, port=3000)
