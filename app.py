@@ -27,6 +27,7 @@ app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'  # Restrict cookie sending to same
 app.config['PERMANENT_SESSION_LIFETIME'] = 84600  # Session expires after 30 minutes
 
 # Configure database
+
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL", "sqlite:///users.db")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOAD_FOLDER'] = 'uploads'
@@ -971,6 +972,33 @@ def dashboard_analytics():
             'error': 'Failed to load analytics data',
             'message': str(e)
         }), 500
+
+# Health check endpoints
+@app.route('/healthz')
+def health_check():
+    """Health check endpoint for Render and monitoring services."""
+    try:
+        # Test database connection
+        db.session.execute('SELECT 1')
+        return jsonify({
+            'status': 'healthy',
+            'service': 'dormease',
+            'timestamp': datetime.now().isoformat(),
+            'database': 'connected'
+        }), 200
+    except Exception as e:
+        return jsonify({
+            'status': 'unhealthy',
+            'service': 'dormease',
+            'timestamp': datetime.now().isoformat(),
+            'database': 'disconnected',
+            'error': str(e)
+        }), 503
+
+@app.route('/health')
+def simple_health():
+    """Simple health check endpoint."""
+    return "OK", 200
 
 @app.errorhandler(404)
 def page_not_found(e):
