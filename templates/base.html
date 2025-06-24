@@ -8,6 +8,7 @@
       href="{{url_for('static' ,filename = '/images/favicon.ico')}}"
       type="image/x-icon"
     />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <title>{% block title%} {% endblock %} < Dormease</title>
     <!-- Global Stylesheet -->
     <link
@@ -29,14 +30,13 @@
     <!-- Mobile-only overlay -->
     <div class="mobile-overlay">
       <div class="mobile-overlay-content">
+        <i class="fa-solid fa-link-slash" ></i>
         <img 
           src="{{ url_for('static', filename='/images/Dormease_logo.svg') }}" 
           alt="Dormease Logo" 
           class="mobile-logo"
         />
-        <h2>Sorry!</h2>
         <p>Dormease is only available for desktops right now.</p>
-        <p>Please visit us on a desktop or laptop computer for the best experience.</p>
         <code>~ Capstone Group 14</code>
       </div>
     </div>
